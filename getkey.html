@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Omega Hub | Key System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="card">
+    <h1>🔐 Omega Hub Key System</h1>
+    <p id="progress">Progress: <span id="status">0 / 1</span></p>
+    <button id="lootlabsBtn">➡️ Go to LootLabs</button>
+    <button id="genKeyBtn" disabled>🎯 Generate Key</button>
+    <div id="keyBox" class="hidden">
+      <p id="generatedKey"></p>
+      <button onclick="copyKey()">📋 Copy Key</button>
+    </div>
+    <a class="discord" href="https://discord.gg/J9s4fWaK" target="_blank">Join our Discord</a>
+  </div>
+
+  <script>
+    const checkpoint = new URLSearchParams(window.location.search).get("checkpoint");
+    const genKeyBtn = document.getElementById("genKeyBtn");
+    const lootlabsBtn = document.getElementById("lootlabsBtn");
+    const progress = document.getElementById("status");
+    const keyBox = document.getElementById("keyBox");
+    const generatedKey = document.getElementById("generatedKey");
+
+    if (checkpoint === "1") {
+      genKeyBtn.disabled = false;
+      progress.textContent = "1 / 1";
+    }
+
+    lootlabsBtn.onclick = () => {
+      window.location.href = "https://lootlabs.io/key-system/Zenxxan";
+    };
+
+    genKeyBtn.onclick = async () => {
+      const res = await fetch("/api/genkey");
+      const data = await res.json();
+      generatedKey.textContent = data.key;
+      keyBox.classList.remove("hidden");
+    };
+
+    function copyKey() {
+      navigator.clipboard.writeText(generatedKey.textContent);
+      alert("Key copied!");
+    }
+  </script>
+</body>
+</html>
