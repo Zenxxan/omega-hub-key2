@@ -346,7 +346,6 @@ function Syllinse:Load()
     tabContentsContainer.ZIndex = 10
 
     local allButtonFrames = {}
-    local keybindButtons = {}
     local tabs = {}
     local currentTab = "Main"
 
@@ -364,7 +363,6 @@ function Syllinse:Load()
         tabButton.TextSize = 12
         tabButton.ZIndex = 20
         tabButton.Parent = tabsContainer 
-        
         
         local tabUnderline = Instance.new('Frame')
         tabUnderline.Name = "Underline"
@@ -575,8 +573,10 @@ function Syllinse:Load()
             if data.keybinds then
                 for buttonName, key in pairs(data.keybinds) do
                     if allButtonElements[buttonName] then
-                        allButtonElements[buttonName].keybind = key
-                        allButtonElements[buttonName].keybindButton.Text = key
+                        allButtonElements[buttonName].keybind = tostring(key)
+                        if allButtonElements[buttonName].keybindButton and allButtonElements[buttonName].keybindButton.Text then
+                            allButtonElements[buttonName].keybindButton.Text = tostring(key)
+                        end
                     end
                 end
             end
@@ -584,8 +584,10 @@ function Syllinse:Load()
             if data.toggles then
                 for toggleName, key in pairs(data.toggles) do
                     if allToggleElements[toggleName] then
-                        allToggleElements[toggleName].keybind = key
-                        allToggleElements[toggleName].keybindButton.Text = key
+                        allToggleElements[toggleName].keybind = tostring(key)
+                        if allToggleElements[toggleName].keybindButton and allToggleElements[toggleName].keybindButton.Text then
+                            allToggleElements[toggleName].keybindButton.Text = tostring(key)
+                        end
                     end
                 end
             end
@@ -597,17 +599,25 @@ function Syllinse:Load()
                         buttonStates[toggleName] = state
                         
                         if state then
-                            allToggleElements[toggleName].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
-                            allToggleElements[toggleName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
-                            allToggleElements[toggleName].toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
+                            if allToggleElements[toggleName].toggleSwitch then
+                                allToggleElements[toggleName].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
+                                allToggleElements[toggleName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+                            end
+                            if allToggleElements[toggleName].toggleFrame then
+                                allToggleElements[toggleName].toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
+                            end
                             
                             if allToggleElements[toggleName].callback then
                                 allToggleElements[toggleName].callback(true)
                             end
                         else
-                            allToggleElements[toggleName].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
-                            allToggleElements[toggleName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
-                            allToggleElements[toggleName].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+                            if allToggleElements[toggleName].toggleSwitch then
+                                allToggleElements[toggleName].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
+                                allToggleElements[toggleName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
+                            end
+                            if allToggleElements[toggleName].toggleFrame then
+                                allToggleElements[toggleName].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+                            end
                             
                             if allToggleElements[toggleName].callback then
                                 allToggleElements[toggleName].callback(false)
@@ -621,11 +631,15 @@ function Syllinse:Load()
 
     local function updateKeybind(elementType, elementName, newKey)
         if elementType == "button" and allButtonElements[elementName] then
-            allButtonElements[elementName].keybind = newKey
-            allButtonElements[elementName].keybindButton.Text = newKey
+            allButtonElements[elementName].keybind = tostring(newKey)
+            if allButtonElements[elementName].keybindButton then
+                allButtonElements[elementName].keybindButton.Text = tostring(newKey)
+            end
         elseif elementType == "toggle" and allToggleElements[elementName] then
-            allToggleElements[elementName].keybind = newKey
-            allToggleElements[elementName].keybindButton.Text = newKey
+            allToggleElements[elementName].keybind = tostring(newKey)
+            if allToggleElements[elementName].keybindButton then
+                allToggleElements[elementName].keybindButton.Text = tostring(newKey)
+            end
         end
         saveSettings()
     end
@@ -633,8 +647,7 @@ function Syllinse:Load()
     local function createToggle(parent, text, position, callback, defaultKey)
         local buttonContainer = Instance.new('Frame')
         buttonContainer.Size = UDim2.new(1, -10, 0, 24)
-        buttonContainer.Position = UDim2.new(0.5, 0, position.Y.Scale, position.Y.Offset)
-        buttonContainer.AnchorPoint = Vector2.new(0.5, 0)
+        buttonContainer.Position = position
         buttonContainer.BackgroundTransparency = 1
         buttonContainer.Parent = parent
         
@@ -681,7 +694,7 @@ function Syllinse:Load()
         keybindButton.BackgroundTransparency = 0.15
         keybindButton.BorderSizePixel = 0
         keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
-        keybindButton.Text = defaultKey or 'NONE'
+        keybindButton.Text = tostring(defaultKey or 'NONE')
         keybindButton.Font = Enum.Font.GothamMedium
         keybindButton.TextSize = 10
         keybindButton.Parent = buttonContainer
@@ -700,7 +713,7 @@ function Syllinse:Load()
         allToggleElements[text] = {
             type = "toggle",
             keybindButton = keybindButton,
-            keybind = defaultKey or 'NONE',
+            keybind = tostring(defaultKey or 'NONE'),
             callback = callback,
             toggleSwitch = toggleSwitch,
             toggleFrame = toggleFrame,
@@ -721,7 +734,7 @@ function Syllinse:Load()
                     end
 
                     if input.UserInputType == Enum.UserInputType.Keyboard then
-                        local key = input.KeyCode.Name
+                        local key = tostring(input.KeyCode.Name)
                         updateKeybind("toggle", text, key)
                         listening = false
                         keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
@@ -766,7 +779,7 @@ function Syllinse:Load()
             end
 
             if input.UserInputType == Enum.UserInputType.Keyboard then
-                local pressedKey = input.KeyCode.Name
+                local pressedKey = tostring(input.KeyCode.Name)
                 if
                     allToggleElements[text]
                     and allToggleElements[text].keybind == pressedKey
@@ -840,7 +853,7 @@ function Syllinse:Load()
         keybindButton.BackgroundTransparency = 0.15
         keybindButton.BorderSizePixel = 0
         keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
-        keybindButton.Text = defaultKey or 'NONE'
+        keybindButton.Text = tostring(defaultKey or 'NONE')
         keybindButton.Font = Enum.Font.GothamMedium
         keybindButton.TextSize = 10
         keybindButton.Parent = buttonContainer
@@ -858,7 +871,7 @@ function Syllinse:Load()
         allButtonElements[text] = {
             type = "button",
             keybindButton = keybindButton,
-            keybind = defaultKey or 'NONE',
+            keybind = tostring(defaultKey or 'NONE'),
             callback = callback
         }
         
@@ -882,7 +895,7 @@ function Syllinse:Load()
                     end
 
                     if input.UserInputType == Enum.UserInputType.Keyboard then
-                        local key = input.KeyCode.Name
+                        local key = tostring(input.KeyCode.Name)
                         updateKeybind("button", text, key)
                         listening = false
                         keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
@@ -898,7 +911,7 @@ function Syllinse:Load()
             end
 
             if input.UserInputType == Enum.UserInputType.Keyboard then
-                local pressedKey = input.KeyCode.Name
+                local pressedKey = tostring(input.KeyCode.Name)
                 if
                     allButtonElements[text]
                     and allButtonElements[text].keybind == pressedKey
