@@ -1,35 +1,35 @@
 local Syllinse = {}
 
 function Syllinse:Load()
-    local Players = game:GetService('Players')
-    local RunService = game:GetService('RunService')
-    local Workspace = game:GetService('Workspace')
-    local ReplicatedStorage = game:GetService('ReplicatedStorage')
-    local CoreGui = game:GetService('CoreGui')
-    local UserInputService = game:GetService('UserInputService')
-    local TweenService = game:GetService('TweenService')
-    local Lighting = game:GetService('Lighting')
-    local HttpService = game:GetService('HttpService')
+    local Players = game:GetService("Players")
+    local RunService = game:GetService("RunService")
+    local Workspace = game:GetService("Workspace")
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local CoreGui = game:GetService("CoreGui")
+    local UserInputService = game:GetService("UserInputService")
+    local TweenService = game:GetService("TweenService")
+    local Lighting = game:GetService("Lighting")
+    local HttpService = game:GetService("HttpService")
 
     local player = Players.LocalPlayer
 
-    local screenGui = Instance.new('ScreenGui')
-    screenGui.Name = 'ShadowStealHelper'
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "ShadowStealHelper"
     screenGui.Parent = CoreGui
     screenGui.ResetOnSpawn = false
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-    local toggleCircle = Instance.new('ImageButton')
-    toggleCircle.Name = 'ToggleCircle'
+    local toggleCircle = Instance.new("ImageButton")
+    toggleCircle.Name = "ToggleCircle"
     toggleCircle.Size = UDim2.new(0, 48, 0, 48)
     toggleCircle.Position = UDim2.new(0, 20, 0, 20)
-    toggleCircle.Image = 'rbxassetid://96928078987243'
+    toggleCircle.Image = "rbxassetid://96928078987243"
     toggleCircle.ImageColor3 = Color3.fromRGB(255, 255, 255)
-    toggleCircle.BackgroundTransparency = 1 
+    toggleCircle.BackgroundTransparency = 1
     toggleCircle.Parent = screenGui
     toggleCircle.ZIndex = 10
 
-    local toggleCorner = Instance.new('UICorner')
+    local toggleCorner = Instance.new("UICorner")
     toggleCorner.CornerRadius = UDim.new(1, 0)
     toggleCorner.Parent = toggleCircle
 
@@ -39,7 +39,7 @@ function Syllinse:Load()
     toggleAcrylic.BackgroundTransparency = 0.35
     toggleAcrylic.Size = UDim2.new(1, 0, 1, 0)
     toggleAcrylic.BorderSizePixel = 0
-    toggleAcrylic.ZIndex = -1 
+    toggleAcrylic.ZIndex = -1
 
     local toggleAcrylicCorner = Instance.new("UICorner")
     toggleAcrylicCorner.CornerRadius = UDim.new(1, 0)
@@ -56,19 +56,25 @@ function Syllinse:Load()
     toggleNoise.TileSize = UDim2.new(0, 48, 0, 48)
     toggleNoise.ZIndex = -1
 
-    local toggleGradient = Instance.new('UIGradient')
-    toggleGradient.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(25, 25, 35)),
-        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(18, 18, 25)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(12, 12, 18))
-    })
+    local toggleGradient = Instance.new("UIGradient")
+    toggleGradient.Color =
+        ColorSequence.new(
+        {
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(25, 25, 35)),
+            ColorSequenceKeypoint.new(0.5, Color3.fromRGB(18, 18, 25)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(12, 12, 18))
+        }
+    )
     toggleGradient.Rotation = 145
-    toggleGradient.Transparency = NumberSequence.new({
-        NumberSequenceKeypoint.new(0, 0.55),
-        NumberSequenceKeypoint.new(0.4, 0.72),
-        NumberSequenceKeypoint.new(1, 0.85)
-    })
-    toggleGradient.Parent = toggleAcrylic 
+    toggleGradient.Transparency =
+        NumberSequence.new(
+        {
+            NumberSequenceKeypoint.new(0, 0.55),
+            NumberSequenceKeypoint.new(0.4, 0.72),
+            NumberSequenceKeypoint.new(1, 0.85)
+        }
+    )
+    toggleGradient.Parent = toggleAcrylic
 
     local toggleStroke = Instance.new("UIStroke")
     toggleStroke.Parent = toggleCircle
@@ -86,21 +92,27 @@ function Syllinse:Load()
     toggleShine.Parent = toggleCircle
     toggleShine.BackgroundTransparency = 1
     toggleShine.Size = UDim2.new(1, 0, 0.5, 0)
-    toggleShine.ZIndex = -1 
+    toggleShine.ZIndex = -1
     toggleShine.ClipsDescendants = true
 
     local toggleShineGrad = Instance.new("UIGradient")
     toggleShineGrad.Parent = toggleShine
-    toggleShineGrad.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
-    })
+    toggleShineGrad.Color =
+        ColorSequence.new(
+        {
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
+        }
+    )
     toggleShineGrad.Rotation = 180
-    toggleShineGrad.Transparency = NumberSequence.new({
-        NumberSequenceKeypoint.new(0, 0.92),
-        NumberSequenceKeypoint.new(0.5, 0.98),
-        NumberSequenceKeypoint.new(1, 1)
-    })
+    toggleShineGrad.Transparency =
+        NumberSequence.new(
+        {
+            NumberSequenceKeypoint.new(0, 0.92),
+            NumberSequenceKeypoint.new(0.5, 0.98),
+            NumberSequenceKeypoint.new(1, 1)
+        }
+    )
 
     local toggleInnerGlow = Instance.new("Frame")
     toggleInnerGlow.Parent = toggleCircle
@@ -108,13 +120,13 @@ function Syllinse:Load()
     toggleInnerGlow.BackgroundTransparency = 0.96
     toggleInnerGlow.Size = UDim2.new(1, 0, 1, 0)
     toggleInnerGlow.BorderSizePixel = 0
-    toggleInnerGlow.ZIndex = -1 
+    toggleInnerGlow.ZIndex = -1
 
     local toggleInnerGlowCorner = Instance.new("UICorner")
     toggleInnerGlowCorner.CornerRadius = UDim.new(1, 0)
     toggleInnerGlowCorner.Parent = toggleInnerGlow
 
-    local mainFrame = Instance.new('Frame')
+    local mainFrame = Instance.new("Frame")
     mainFrame.Size = UDim2.new(0, 320, 0, 280)
     mainFrame.Position = UDim2.new(0.9, -160, 0, 300)
     mainFrame.BackgroundColor3 = Color3.fromRGB(8, 8, 12)
@@ -162,16 +174,22 @@ function Syllinse:Load()
 
     local shineGrad = Instance.new("UIGradient")
     shineGrad.Parent = glassShine
-    shineGrad.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
-    })
+    shineGrad.Color =
+        ColorSequence.new(
+        {
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
+        }
+    )
     shineGrad.Rotation = 180
-    shineGrad.Transparency = NumberSequence.new({
-        NumberSequenceKeypoint.new(0, 0.92),
-        NumberSequenceKeypoint.new(0.5, 0.98),
-        NumberSequenceKeypoint.new(1, 1)
-    })
+    shineGrad.Transparency =
+        NumberSequence.new(
+        {
+            NumberSequenceKeypoint.new(0, 0.92),
+            NumberSequenceKeypoint.new(0.5, 0.98),
+            NumberSequenceKeypoint.new(1, 1)
+        }
+    )
 
     local innerGlow = Instance.new("Frame")
     innerGlow.Parent = mainFrame
@@ -199,17 +217,23 @@ function Syllinse:Load()
 
     local mainGrad = Instance.new("UIGradient")
     mainGrad.Parent = mainFrame
-    mainGrad.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(20, 20, 28)),
-        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(12, 12, 18)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(8, 8, 12))
-    })
+    mainGrad.Color =
+        ColorSequence.new(
+        {
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(20, 20, 28)),
+            ColorSequenceKeypoint.new(0.5, Color3.fromRGB(12, 12, 18)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(8, 8, 12))
+        }
+    )
     mainGrad.Rotation = 145
-    mainGrad.Transparency = NumberSequence.new({
-        NumberSequenceKeypoint.new(0, 0.55),
-        NumberSequenceKeypoint.new(0.4, 0.72),
-        NumberSequenceKeypoint.new(1, 0.85)
-    })
+    mainGrad.Transparency =
+        NumberSequence.new(
+        {
+            NumberSequenceKeypoint.new(0, 0.55),
+            NumberSequenceKeypoint.new(0.4, 0.72),
+            NumberSequenceKeypoint.new(1, 0.85)
+        }
+    )
 
     local header = Instance.new("Frame")
     header.Parent = mainFrame
@@ -246,10 +270,13 @@ function Syllinse:Load()
 
     local titleGrad = Instance.new("UIGradient")
     titleGrad.Parent = title
-    titleGrad.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(180, 200, 255))
-    })
+    titleGrad.Color =
+        ColorSequence.new(
+        {
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(180, 200, 255))
+        }
+    )
 
     local subtitle = Instance.new("TextLabel")
     subtitle.Parent = titleContainer
@@ -263,20 +290,20 @@ function Syllinse:Load()
     subtitle.TextXAlignment = Enum.TextXAlignment.Left
     subtitle.ZIndex = 10
 
-    local controls = Instance.new('Frame')
+    local controls = Instance.new("Frame")
     controls.Size = UDim2.new(0, 40, 1, 0)
     controls.Position = UDim2.new(1, -42, 0, 0)
     controls.BackgroundTransparency = 1
     controls.Parent = header
     controls.ZIndex = 10
 
-    local minimizeBtn = Instance.new('TextButton')
+    local minimizeBtn = Instance.new("TextButton")
     minimizeBtn.Size = UDim2.new(0, 18, 0, 18)
     minimizeBtn.Position = UDim2.new(0, 2, 0, 8)
     minimizeBtn.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
     minimizeBtn.BackgroundTransparency = 0.5
     minimizeBtn.BorderSizePixel = 0
-    minimizeBtn.Text = '−'
+    minimizeBtn.Text = "−"
     minimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
     minimizeBtn.Font = Enum.Font.GothamMedium
     minimizeBtn.TextSize = 20
@@ -293,13 +320,13 @@ function Syllinse:Load()
     minimizeBtnStroke.Thickness = 0.8
     minimizeBtnStroke.Transparency = 0.5
 
-    local closeBtn = Instance.new('TextButton')
+    local closeBtn = Instance.new("TextButton")
     closeBtn.Size = UDim2.new(0, 18, 0, 18)
     closeBtn.Position = UDim2.new(0, 20, 0, 8)
     closeBtn.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
     closeBtn.BackgroundTransparency = 0.5
     closeBtn.BorderSizePixel = 0
-    closeBtn.Text = '×'
+    closeBtn.Text = "×"
     closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
     closeBtn.Font = Enum.Font.GothamMedium
     closeBtn.TextSize = 20
@@ -331,11 +358,11 @@ function Syllinse:Load()
     tabsLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
     tabsLayout.VerticalAlignment = Enum.VerticalAlignment.Center
     tabsLayout.Padding = UDim.new(0, 6)
-    tabsLayout.SortOrder = Enum.SortOrder.LayoutOrder  
+    tabsLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
     local tabsPadding = Instance.new("UIPadding")
     tabsPadding.Parent = tabsContainer
-    tabsPadding.PaddingLeft = UDim.new(0, 16) 
+    tabsPadding.PaddingLeft = UDim.new(0, 16)
     tabsPadding.PaddingRight = UDim.new(0, 16)
 
     local tabContentsContainer = Instance.new("Frame")
@@ -350,7 +377,7 @@ function Syllinse:Load()
     local currentTab = "Main"
 
     local function createTab(tabName)
-        local tabButton = Instance.new('TextButton')
+        local tabButton = Instance.new("TextButton")
         tabButton.Name = tabName
         tabButton.Size = UDim2.new(0, 56, 0, 26)
         tabButton.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
@@ -362,9 +389,9 @@ function Syllinse:Load()
         tabButton.Font = Enum.Font.GothamSemibold
         tabButton.TextSize = 12
         tabButton.ZIndex = 20
-        tabButton.Parent = tabsContainer 
-        
-        local tabUnderline = Instance.new('Frame')
+        tabButton.Parent = tabsContainer
+
+        local tabUnderline = Instance.new("Frame")
         tabUnderline.Name = "Underline"
         tabUnderline.Size = UDim2.new(0.6, 0, 0, 2)
         tabUnderline.Position = UDim2.new(0.2, 0, 1, -1)
@@ -374,7 +401,7 @@ function Syllinse:Load()
         tabUnderline.Visible = false
         tabUnderline.ZIndex = 22
         tabUnderline.Parent = tabButton
-        
+
         local tabAcrylic = Instance.new("Frame")
         tabAcrylic.Parent = tabButton
         tabAcrylic.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
@@ -382,15 +409,15 @@ function Syllinse:Load()
         tabAcrylic.Size = UDim2.new(1, 0, 1, 0)
         tabAcrylic.BorderSizePixel = 0
         tabAcrylic.ZIndex = 10
-        
-        local tabCorner = Instance.new('UICorner')
+
+        local tabCorner = Instance.new("UICorner")
         tabCorner.CornerRadius = UDim.new(0, 6)
         tabCorner.Parent = tabButton
-        
-        local acrylicCorner = Instance.new('UICorner')
+
+        local acrylicCorner = Instance.new("UICorner")
         acrylicCorner.CornerRadius = UDim.new(0, 6)
         acrylicCorner.Parent = tabAcrylic
-        
+
         local tabNoise = Instance.new("ImageLabel")
         tabNoise.Parent = tabAcrylic
         tabNoise.BackgroundTransparency = 1
@@ -401,126 +428,214 @@ function Syllinse:Load()
         tabNoise.ScaleType = Enum.ScaleType.Tile
         tabNoise.TileSize = UDim2.new(0, 48, 0, 48)
         tabNoise.ZIndex = 11
-        
-        local tabStroke = Instance.new('UIStroke')
+
+        local tabStroke = Instance.new("UIStroke")
         tabStroke.Parent = tabButton
         tabStroke.Color = Color3.fromRGB(80, 80, 100)
         tabStroke.Thickness = 1
         tabStroke.Transparency = 0.3
-        
-        local innerStroke = Instance.new('UIStroke')
+
+        local innerStroke = Instance.new("UIStroke")
         innerStroke.Parent = tabAcrylic
         innerStroke.Color = Color3.fromRGB(255, 255, 255)
         innerStroke.Thickness = 0.8
         innerStroke.Transparency = 0.9
-        
-        local tabContent = Instance.new('Frame')
+
+        local tabContent = Instance.new("Frame")
         tabContent.Name = tabName .. "Content"
         tabContent.Size = UDim2.new(1, 0, 1, 0)
         tabContent.Position = UDim2.new(0, 0, 0, 0)
         tabContent.BackgroundTransparency = 1
         tabContent.Visible = false
         tabContent.Parent = tabContentsContainer
-        
+
         local tabLayout = Instance.new("UIListLayout")
         tabLayout.Parent = tabContent
         tabLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
         tabLayout.SortOrder = Enum.SortOrder.LayoutOrder
         tabLayout.Padding = UDim.new(0, 6)
-        
+
         tabs[tabName] = {
             button = tabButton,
             content = tabContent,
             acrylic = tabAcrylic,
             stroke = tabStroke,
-            underline = tabUnderline,
+            underline = tabUnderline
         }
-        
-        tabButton.MouseButton1Click:Connect(function()
-            if currentTab == tabName then return end
-            
-            local oldTab = tabs[currentTab]
-            if oldTab then
-                oldTab.content.Visible = false
-                TweenService:Create(oldTab.button, TweenInfo.new(0.2), {
-                    BackgroundColor3 = Color3.fromRGB(15, 15, 20)
-                }):Play()
-                TweenService:Create(oldTab.acrylic, TweenInfo.new(0.2), {
-                    BackgroundColor3 = Color3.fromRGB(25, 25, 35)
-                }):Play()
-                TweenService:Create(oldTab.stroke, TweenInfo.new(0.2), {
-                    Color = Color3.fromRGB(60, 60, 75)
-                }):Play()
-                TweenService:Create(oldTab.button, TweenInfo.new(0.2), {
-                    TextColor3 = Color3.fromRGB(200, 200, 220)
-                }):Play()
-                TweenService:Create(oldTab.underline, TweenInfo.new(0.2), {
-                    BackgroundTransparency = 1,
-                    Visible = false
-                }):Play()
+
+        tabButton.MouseButton1Click:Connect(
+            function()
+                if currentTab == tabName then
+                    return
+                end
+
+                local oldTab = tabs[currentTab]
+                if oldTab then
+                    oldTab.content.Visible = false
+                    TweenService:Create(
+                        oldTab.button,
+                        TweenInfo.new(0.2),
+                        {
+                            BackgroundColor3 = Color3.fromRGB(15, 15, 20)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        oldTab.acrylic,
+                        TweenInfo.new(0.2),
+                        {
+                            BackgroundColor3 = Color3.fromRGB(25, 25, 35)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        oldTab.stroke,
+                        TweenInfo.new(0.2),
+                        {
+                            Color = Color3.fromRGB(60, 60, 75)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        oldTab.button,
+                        TweenInfo.new(0.2),
+                        {
+                            TextColor3 = Color3.fromRGB(200, 200, 220)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        oldTab.underline,
+                        TweenInfo.new(0.2),
+                        {
+                            BackgroundTransparency = 1,
+                            Visible = false
+                        }
+                    ):Play()
+                end
+
+                currentTab = tabName
+                tabContent.Visible = true
+
+                TweenService:Create(
+                    tabButton,
+                    TweenInfo.new(0.2),
+                    {
+                        BackgroundColor3 = Color3.fromRGB(20, 40, 60)
+                    }
+                ):Play()
+                TweenService:Create(
+                    tabAcrylic,
+                    TweenInfo.new(0.2),
+                    {
+                        BackgroundColor3 = Color3.fromRGB(30, 60, 90)
+                    }
+                ):Play()
+                TweenService:Create(
+                    tabStroke,
+                    TweenInfo.new(0.2),
+                    {
+                        Color = Color3.fromRGB(0, 150, 255)
+                    }
+                ):Play()
+                TweenService:Create(
+                    tabButton,
+                    TweenInfo.new(0.2),
+                    {
+                        TextColor3 = Color3.fromRGB(255, 255, 255)
+                    }
+                ):Play()
+                tabUnderline.Visible = true
+                TweenService:Create(
+                    tabUnderline,
+                    TweenInfo.new(0.2),
+                    {
+                        BackgroundTransparency = 0.3
+                    }
+                ):Play()
             end
-            
-            currentTab = tabName
-            tabContent.Visible = true
-            
-            TweenService:Create(tabButton, TweenInfo.new(0.2), {
-                BackgroundColor3 = Color3.fromRGB(20, 40, 60)
-            }):Play()
-            TweenService:Create(tabAcrylic, TweenInfo.new(0.2), {
-                BackgroundColor3 = Color3.fromRGB(30, 60, 90)
-            }):Play()
-            TweenService:Create(tabStroke, TweenInfo.new(0.2), {
-                Color = Color3.fromRGB(0, 150, 255)
-            }):Play()
-            TweenService:Create(tabButton, TweenInfo.new(0.2), {
-                TextColor3 = Color3.fromRGB(255, 255, 255)
-            }):Play()
-            tabUnderline.Visible = true
-            TweenService:Create(tabUnderline, TweenInfo.new(0.2), {
-                BackgroundTransparency = 0.3
-            }):Play()
-        end)
-        
-        tabButton.MouseEnter:Connect(function()
-            if currentTab ~= tabName then
-                TweenService:Create(tabButton, TweenInfo.new(0.1), {
-                    BackgroundColor3 = Color3.fromRGB(20, 20, 25)
-                }):Play()
-                TweenService:Create(tabAcrylic, TweenInfo.new(0.1), {
-                    BackgroundColor3 = Color3.fromRGB(35, 35, 45)
-                }):Play()
-                TweenService:Create(tabStroke, TweenInfo.new(0.1), {
-                    Color = Color3.fromRGB(80, 80, 100)
-                }):Play()
-                TweenService:Create(tabButton, TweenInfo.new(0.1), {
-                    TextColor3 = Color3.fromRGB(240, 240, 255)
-                }):Play()
-                TweenService:Create(tabUnderline, TweenInfo.new(0.1), {
-                    BackgroundTransparency = 0.5
-                }):Play()
+        )
+
+        tabButton.MouseEnter:Connect(
+            function()
+                if currentTab ~= tabName then
+                    TweenService:Create(
+                        tabButton,
+                        TweenInfo.new(0.1),
+                        {
+                            BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        tabAcrylic,
+                        TweenInfo.new(0.1),
+                        {
+                            BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        tabStroke,
+                        TweenInfo.new(0.1),
+                        {
+                            Color = Color3.fromRGB(80, 80, 100)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        tabButton,
+                        TweenInfo.new(0.1),
+                        {
+                            TextColor3 = Color3.fromRGB(240, 240, 255)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        tabUnderline,
+                        TweenInfo.new(0.1),
+                        {
+                            BackgroundTransparency = 0.5
+                        }
+                    ):Play()
+                end
             end
-        end)
-        
-        tabButton.MouseLeave:Connect(function()
-            if currentTab ~= tabName then
-                TweenService:Create(tabButton, TweenInfo.new(0.1), {
-                    BackgroundColor3 = Color3.fromRGB(15, 15, 20)
-                }):Play()
-                TweenService:Create(tabAcrylic, TweenInfo.new(0.1), {
-                    BackgroundColor3 = Color3.fromRGB(25, 25, 35)
-                }):Play()
-                TweenService:Create(tabStroke, TweenInfo.new(0.1), {
-                    Color = Color3.fromRGB(60, 60, 75)
-                }):Play()
-                TweenService:Create(tabButton, TweenInfo.new(0.1), {
-                    TextColor3 = Color3.fromRGB(200, 200, 220)
-                }):Play()
-                TweenService:Create(tabUnderline, TweenInfo.new(0.1), {
-                    BackgroundTransparency = 1
-                }):Play()
+        )
+
+        tabButton.MouseLeave:Connect(
+            function()
+                if currentTab ~= tabName then
+                    TweenService:Create(
+                        tabButton,
+                        TweenInfo.new(0.1),
+                        {
+                            BackgroundColor3 = Color3.fromRGB(15, 15, 20)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        tabAcrylic,
+                        TweenInfo.new(0.1),
+                        {
+                            BackgroundColor3 = Color3.fromRGB(25, 25, 35)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        tabStroke,
+                        TweenInfo.new(0.1),
+                        {
+                            Color = Color3.fromRGB(60, 60, 75)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        tabButton,
+                        TweenInfo.new(0.1),
+                        {
+                            TextColor3 = Color3.fromRGB(200, 200, 220)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        tabUnderline,
+                        TweenInfo.new(0.1),
+                        {
+                            BackgroundTransparency = 1
+                        }
+                    ):Play()
+                end
             end
-        end)
-        
+        )
+
         return tabContent
     end
 
@@ -544,89 +659,95 @@ function Syllinse:Load()
             toggles = {},
             buttonStates = {}
         }
-        
+
         for buttonName, elementInfo in pairs(allButtonElements) do
             settingsData.keybinds[buttonName] = elementInfo.keybind or "NONE"
         end
-        
+
         for toggleName, elementInfo in pairs(allToggleElements) do
             settingsData.toggles[toggleName] = elementInfo.keybind or "NONE"
             settingsData.buttonStates[toggleName] = elementInfo.state or false
         end
 
-        pcall(function()
-            writefile(
-                'syllinse_settings.json',
-                HttpService:JSONEncode(settingsData)
-            )
-        end)
+        pcall(
+            function()
+                writefile("syllinse_settings.json", HttpService:JSONEncode(settingsData))
+            end
+        )
     end
 
     local function loadSettings()
-        if not readfile or not isfile or not isfile('syllinse_settings.json') then
+        if not readfile or not isfile or not isfile("syllinse_settings.json") then
             return
         end
 
-        pcall(function()
-            local data = HttpService:JSONDecode(readfile('syllinse_settings.json'))
-            
-            if data.keybinds then
-                for buttonName, key in pairs(data.keybinds) do
-                    if allButtonElements[buttonName] then
-                        allButtonElements[buttonName].keybind = tostring(key)
-                        if allButtonElements[buttonName].keybindButton and allButtonElements[buttonName].keybindButton.Text then
-                            allButtonElements[buttonName].keybindButton.Text = tostring(key)
+        pcall(
+            function()
+                local data = HttpService:JSONDecode(readfile("syllinse_settings.json"))
+
+                if data.keybinds then
+                    for buttonName, key in pairs(data.keybinds) do
+                        if allButtonElements[buttonName] then
+                            allButtonElements[buttonName].keybind = tostring(key)
+                            if
+                                allButtonElements[buttonName].keybindButton and
+                                    allButtonElements[buttonName].keybindButton.Text
+                             then
+                                allButtonElements[buttonName].keybindButton.Text = tostring(key)
+                            end
                         end
                     end
                 end
-            end
-            
-            if data.toggles then
-                for toggleName, key in pairs(data.toggles) do
-                    if allToggleElements[toggleName] then
-                        allToggleElements[toggleName].keybind = tostring(key)
-                        if allToggleElements[toggleName].keybindButton and allToggleElements[toggleName].keybindButton.Text then
-                            allToggleElements[toggleName].keybindButton.Text = tostring(key)
+
+                if data.toggles then
+                    for toggleName, key in pairs(data.toggles) do
+                        if allToggleElements[toggleName] then
+                            allToggleElements[toggleName].keybind = tostring(key)
+                            if
+                                allToggleElements[toggleName].keybindButton and
+                                    allToggleElements[toggleName].keybindButton.Text
+                             then
+                                allToggleElements[toggleName].keybindButton.Text = tostring(key)
+                            end
                         end
                     end
                 end
-            end
-            
-            if data.buttonStates then
-                for toggleName, state in pairs(data.buttonStates) do
-                    if allToggleElements[toggleName] then
-                        allToggleElements[toggleName].state = state
-                        buttonStates[toggleName] = state
-                        
-                        if state then
-                            if allToggleElements[toggleName].toggleSwitch then
-                                allToggleElements[toggleName].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
-                                allToggleElements[toggleName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+
+                if data.buttonStates then
+                    for toggleName, state in pairs(data.buttonStates) do
+                        if allToggleElements[toggleName] then
+                            buttonStates[toggleName] = state
+                            allToggleElements[toggleName].state = state
+
+                            local toggleSwitch = allToggleElements[toggleName].toggleSwitch
+                            local toggleFrame = allToggleElements[toggleName].toggleFrame
+
+                            if toggleSwitch then
+                                if state then
+                                    toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
+                                    toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+                                else
+                                    toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
+                                    toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
+                                end
                             end
-                            if allToggleElements[toggleName].toggleFrame then
-                                allToggleElements[toggleName].toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
+
+                            if toggleFrame then
+                                if state then
+                                    toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
+                                else
+                                    toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+                                end
                             end
-                            
+
                             if allToggleElements[toggleName].callback then
-                                allToggleElements[toggleName].callback(true)
-                            end
-                        else
-                            if allToggleElements[toggleName].toggleSwitch then
-                                allToggleElements[toggleName].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
-                                allToggleElements[toggleName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
-                            end
-                            if allToggleElements[toggleName].toggleFrame then
-                                allToggleElements[toggleName].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-                            end
-                            
-                            if allToggleElements[toggleName].callback then
-                                allToggleElements[toggleName].callback(false)
+                                allToggleElements[toggleName].callback(state)
                             end
                         end
                     end
                 end
             end
-        end)
+        )
     end
 
     local function updateKeybind(elementType, elementName, newKey)
@@ -645,12 +766,12 @@ function Syllinse:Load()
     end
 
     local function createToggle(parent, text, callback, defaultKey)
-        local buttonContainer = Instance.new('Frame')
+        local buttonContainer = Instance.new("Frame")
         buttonContainer.Size = UDim2.new(1, -10, 0, 24)
         buttonContainer.BackgroundTransparency = 1
         buttonContainer.Parent = parent
-        
-        local textLabel = Instance.new('TextLabel')
+
+        local textLabel = Instance.new("TextLabel")
         textLabel.Size = UDim2.new(0.50, 0, 0.9, 0)
         textLabel.Position = UDim2.new(0, 0, 0.05, 0)
         textLabel.BackgroundTransparency = 1
@@ -660,8 +781,8 @@ function Syllinse:Load()
         textLabel.TextSize = 14
         textLabel.TextXAlignment = Enum.TextXAlignment.Left
         textLabel.Parent = buttonContainer
-        
-        local toggleFrame = Instance.new('ImageButton')
+
+        local toggleFrame = Instance.new("ImageButton")
         toggleFrame.Size = UDim2.new(0.14, 0, 0.8, 0)
         toggleFrame.Position = UDim2.new(0.6, 0, 0.100, 0)
         toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
@@ -669,161 +790,197 @@ function Syllinse:Load()
         toggleFrame.BorderSizePixel = 0
         toggleFrame.ImageTransparency = 1
         toggleFrame.Parent = buttonContainer
-        
-        local toggleCorner = Instance.new('UICorner')
+
+        local toggleCorner = Instance.new("UICorner")
         toggleCorner.CornerRadius = UDim.new(1, 0)
         toggleCorner.Parent = toggleFrame
-        
-        local toggleSwitch = Instance.new('Frame')
+
+        local toggleSwitch = Instance.new("Frame")
         toggleSwitch.Size = UDim2.new(0.4, 0, 0.7, 0)
         toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
         toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
         toggleSwitch.BackgroundTransparency = 0.3
         toggleSwitch.BorderSizePixel = 0
         toggleSwitch.Parent = toggleFrame
-        
-        local switchCorner = Instance.new('UICorner')
+
+        local switchCorner = Instance.new("UICorner")
         switchCorner.CornerRadius = UDim.new(1, 0)
         switchCorner.Parent = toggleSwitch
-        
-        local keybindButton = Instance.new('TextButton')
+
+        local keybindButton = Instance.new("TextButton")
         keybindButton.Size = UDim2.new(0.2, 0, 0.8, 0)
         keybindButton.Position = UDim2.new(0.75, 0, 0.1, 0)
         keybindButton.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
         keybindButton.BackgroundTransparency = 0.15
         keybindButton.BorderSizePixel = 0
         keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
-        keybindButton.Text = tostring(defaultKey or 'NONE')
+        keybindButton.Text = tostring(defaultKey or "NONE")
         keybindButton.Font = Enum.Font.GothamMedium
         keybindButton.TextSize = 10
         keybindButton.Parent = buttonContainer
-        
-        local keybindCorner = Instance.new('UICorner')
+
+        local keybindCorner = Instance.new("UICorner")
         keybindCorner.CornerRadius = UDim.new(0, 4)
         keybindCorner.Parent = keybindButton
-        
-        local keybindStroke = Instance.new('UIStroke')
+
+        local keybindStroke = Instance.new("UIStroke")
         keybindStroke.Parent = keybindButton
         keybindStroke.Color = Color3.fromRGB(60, 60, 75)
         keybindStroke.Thickness = 1
         keybindStroke.Transparency = 0.3
-        
+
         buttonStates[text] = false
         allToggleElements[text] = {
             type = "toggle",
             keybindButton = keybindButton,
-            keybind = tostring(defaultKey or 'NONE'),
+            keybind = tostring(defaultKey or "NONE"),
             callback = callback,
             toggleSwitch = toggleSwitch,
             toggleFrame = toggleFrame,
             state = false
         }
-        
+
         local listening = false
-        keybindButton.MouseButton1Click:Connect(function()
-            listening = true
-            keybindButton.Text = '...'
-            keybindButton.TextColor3 = Color3.fromRGB(100, 200, 255)
+        keybindButton.MouseButton1Click:Connect(
+            function()
+                listening = true
+                keybindButton.Text = "..."
+                keybindButton.TextColor3 = Color3.fromRGB(100, 200, 255)
 
-            local connection
-            connection = UserInputService.InputBegan:Connect(
-                function(input, gameProcessed)
-                    if gameProcessed then
-                        return
+                local connection
+                connection =
+                    UserInputService.InputBegan:Connect(
+                    function(input, gameProcessed)
+                        if gameProcessed then
+                            return
+                        end
+
+                        if input.UserInputType == Enum.UserInputType.Keyboard then
+                            local key = tostring(input.KeyCode.Name)
+                            updateKeybind("toggle", text, key)
+                            listening = false
+                            keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
+                            connection:Disconnect()
+                        end
                     end
+                )
+            end
+        )
 
-                    if input.UserInputType == Enum.UserInputType.Keyboard then
-                        local key = tostring(input.KeyCode.Name)
-                        updateKeybind("toggle", text, key)
-                        listening = false
-                        keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
-                        connection:Disconnect()
-                    end
-                end
-            )
-        end)
-        
-        toggleFrame.MouseButton1Click:Connect(function()
-            buttonStates[text] = not buttonStates[text]
-            allToggleElements[text].state = buttonStates[text]
-            
-            if buttonStates[text] then
-                TweenService:Create(toggleSwitch, TweenInfo.new(0.2), {
-                    Position = UDim2.new(0.55, 0, 0.15, 0),
-                    BackgroundColor3 = Color3.fromRGB(0, 150, 255)
-                }):Play()
-                TweenService:Create(toggleFrame, TweenInfo.new(0.2), {
-                    BackgroundColor3 = Color3.fromRGB(20, 40, 60)
-                }):Play()
-            else
-                TweenService:Create(toggleSwitch, TweenInfo.new(0.2), {
-                    Position = UDim2.new(0.05, 0, 0.15, 0),
-                    BackgroundColor3 = Color3.fromRGB(100, 100, 120)
-                }):Play()
-                TweenService:Create(toggleFrame, TweenInfo.new(0.2), {
-                    BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-                }):Play()
-            end
-            
-            saveSettings()
-            
-            if callback then
-                callback(buttonStates[text])
-            end
-        end)
-        
-        UserInputService.InputBegan:Connect(function(input, gameProcessed)
-            if gameProcessed then
-                return
-            end
+        toggleFrame.MouseButton1Click:Connect(
+            function()
+                buttonStates[text] = not buttonStates[text]
+                allToggleElements[text].state = buttonStates[text]
 
-            if input.UserInputType == Enum.UserInputType.Keyboard then
-                local pressedKey = tostring(input.KeyCode.Name)
-                if
-                    allToggleElements[text]
-                    and allToggleElements[text].keybind == pressedKey
-                then
-                    buttonStates[text] = not buttonStates[text]
-                    allToggleElements[text].state = buttonStates[text]
-                    
-                    if buttonStates[text] then
-                        TweenService:Create(toggleSwitch, TweenInfo.new(0.2), {
+                if buttonStates[text] then
+                    TweenService:Create(
+                        toggleSwitch,
+                        TweenInfo.new(0.2),
+                        {
                             Position = UDim2.new(0.55, 0, 0.15, 0),
                             BackgroundColor3 = Color3.fromRGB(0, 150, 255)
-                        }):Play()
-                        TweenService:Create(toggleFrame, TweenInfo.new(0.2), {
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        toggleFrame,
+                        TweenInfo.new(0.2),
+                        {
                             BackgroundColor3 = Color3.fromRGB(20, 40, 60)
-                        }):Play()
-                    else
-                        TweenService:Create(toggleSwitch, TweenInfo.new(0.2), {
+                        }
+                    ):Play()
+                else
+                    TweenService:Create(
+                        toggleSwitch,
+                        TweenInfo.new(0.2),
+                        {
                             Position = UDim2.new(0.05, 0, 0.15, 0),
                             BackgroundColor3 = Color3.fromRGB(100, 100, 120)
-                        }):Play()
-                        TweenService:Create(toggleFrame, TweenInfo.new(0.2), {
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        toggleFrame,
+                        TweenInfo.new(0.2),
+                        {
                             BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-                        }):Play()
-                    end
-                    
-                    saveSettings()
-                    
-                    if callback then
-                        callback(buttonStates[text])
+                        }
+                    ):Play()
+                end
+
+                saveSettings()
+
+                if callback then
+                    callback(buttonStates[text])
+                end
+            end
+        )
+
+        UserInputService.InputBegan:Connect(
+            function(input, gameProcessed)
+                if gameProcessed then
+                    return
+                end
+
+                if input.UserInputType == Enum.UserInputType.Keyboard then
+                    local pressedKey = tostring(input.KeyCode.Name)
+                    if allToggleElements[text] and allToggleElements[text].keybind == pressedKey then
+                        buttonStates[text] = not buttonStates[text]
+                        allToggleElements[text].state = buttonStates[text]
+
+                        if buttonStates[text] then
+                            TweenService:Create(
+                                toggleSwitch,
+                                TweenInfo.new(0.2),
+                                {
+                                    Position = UDim2.new(0.55, 0, 0.15, 0),
+                                    BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+                                }
+                            ):Play()
+                            TweenService:Create(
+                                toggleFrame,
+                                TweenInfo.new(0.2),
+                                {
+                                    BackgroundColor3 = Color3.fromRGB(20, 40, 60)
+                                }
+                            ):Play()
+                        else
+                            TweenService:Create(
+                                toggleSwitch,
+                                TweenInfo.new(0.2),
+                                {
+                                    Position = UDim2.new(0.05, 0, 0.15, 0),
+                                    BackgroundColor3 = Color3.fromRGB(100, 100, 120)
+                                }
+                            ):Play()
+                            TweenService:Create(
+                                toggleFrame,
+                                TweenInfo.new(0.2),
+                                {
+                                    BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+                                }
+                            ):Play()
+                        end
+
+                        saveSettings()
+
+                        if callback then
+                            callback(buttonStates[text])
+                        end
                     end
                 end
             end
-        end)
+        )
 
         table.insert(allButtonFrames, buttonContainer)
         return buttonContainer
     end
 
     local function createButton(parent, text, callback, defaultKey)
-        local buttonContainer = Instance.new('Frame')
+        local buttonContainer = Instance.new("Frame")
         buttonContainer.Size = UDim2.new(1, -10, 0, 24)
         buttonContainer.BackgroundTransparency = 1
         buttonContainer.Parent = parent
-        
-        local textLabel = Instance.new('TextLabel')
+
+        local textLabel = Instance.new("TextLabel")
         textLabel.Size = UDim2.new(0.50, 0, 0.9, 0)
         textLabel.Position = UDim2.new(0, 0, 0.05, 0)
         textLabel.BackgroundTransparency = 1
@@ -833,30 +990,30 @@ function Syllinse:Load()
         textLabel.TextSize = 14
         textLabel.TextXAlignment = Enum.TextXAlignment.Left
         textLabel.Parent = buttonContainer
-        
-        local keybindButton = Instance.new('TextButton')
+
+        local keybindButton = Instance.new("TextButton")
         keybindButton.Size = UDim2.new(0.2, 0, 0.8, 0)
         keybindButton.Position = UDim2.new(0.75, 0, 0.1, 0)
         keybindButton.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
         keybindButton.BackgroundTransparency = 0.15
         keybindButton.BorderSizePixel = 0
         keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
-        keybindButton.Text = tostring(defaultKey or 'NONE')
+        keybindButton.Text = tostring(defaultKey or "NONE")
         keybindButton.Font = Enum.Font.GothamMedium
         keybindButton.TextSize = 10
         keybindButton.Parent = buttonContainer
-        
-        local keybindCorner = Instance.new('UICorner')
+
+        local keybindCorner = Instance.new("UICorner")
         keybindCorner.CornerRadius = UDim.new(0, 4)
         keybindCorner.Parent = keybindButton
-        
-        local keybindStroke = Instance.new('UIStroke')
+
+        local keybindStroke = Instance.new("UIStroke")
         keybindStroke.Parent = keybindButton
         keybindStroke.Color = Color3.fromRGB(60, 60, 75)
         keybindStroke.Thickness = 1
         keybindStroke.Transparency = 0.3
-        
-        local actionButton = Instance.new('TextButton')
+
+        local actionButton = Instance.new("TextButton")
         actionButton.Size = UDim2.new(0.14, 0, 0.8, 0)
         actionButton.Position = UDim2.new(0.6, 0, 0.100, 0)
         actionButton.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
@@ -867,89 +1024,113 @@ function Syllinse:Load()
         actionButton.Font = Enum.Font.GothamMedium
         actionButton.TextSize = 11
         actionButton.Parent = buttonContainer
-        
-        local actionCorner = Instance.new('UICorner')
+
+        local actionCorner = Instance.new("UICorner")
         actionCorner.CornerRadius = UDim.new(0, 6)
         actionCorner.Parent = actionButton
-        
-        local actionStroke = Instance.new('UIStroke')
+
+        local actionStroke = Instance.new("UIStroke")
         actionStroke.Parent = actionButton
         actionStroke.Color = Color3.fromRGB(60, 60, 75)
         actionStroke.Thickness = 1
         actionStroke.Transparency = 0.3
-        
+
         allButtonElements[text] = {
             type = "button",
             keybindButton = keybindButton,
-            keybind = tostring(defaultKey or 'NONE'),
+            keybind = tostring(defaultKey or "NONE"),
             callback = callback
         }
-        
-        actionButton.MouseButton1Click:Connect(function()
-            if callback then
-                callback()
+
+        actionButton.MouseButton1Click:Connect(
+            function()
+                if callback then
+                    callback()
+                end
             end
-        end)
-        
-        actionButton.MouseEnter:Connect(function()
-            TweenService:Create(actionButton, TweenInfo.new(0.1), {
-                BackgroundColor3 = Color3.fromRGB(20, 40, 60)
-            }):Play()
-            TweenService:Create(actionStroke, TweenInfo.new(0.1), {
-                Color = Color3.fromRGB(0, 150, 255)
-            }):Play()
-        end)
-        
-        actionButton.MouseLeave:Connect(function()
-            TweenService:Create(actionButton, TweenInfo.new(0.1), {
-                BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-            }):Play()
-            TweenService:Create(actionStroke, TweenInfo.new(0.1), {
-                Color = Color3.fromRGB(60, 60, 75)
-            }):Play()
-        end)
-        
+        )
+
+        actionButton.MouseEnter:Connect(
+            function()
+                TweenService:Create(
+                    actionButton,
+                    TweenInfo.new(0.1),
+                    {
+                        BackgroundColor3 = Color3.fromRGB(20, 40, 60)
+                    }
+                ):Play()
+                TweenService:Create(
+                    actionStroke,
+                    TweenInfo.new(0.1),
+                    {
+                        Color = Color3.fromRGB(0, 150, 255)
+                    }
+                ):Play()
+            end
+        )
+
+        actionButton.MouseLeave:Connect(
+            function()
+                TweenService:Create(
+                    actionButton,
+                    TweenInfo.new(0.1),
+                    {
+                        BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+                    }
+                ):Play()
+                TweenService:Create(
+                    actionStroke,
+                    TweenInfo.new(0.1),
+                    {
+                        Color = Color3.fromRGB(60, 60, 75)
+                    }
+                ):Play()
+            end
+        )
+
         local listening = false
-        keybindButton.MouseButton1Click:Connect(function()
-            listening = true
-            keybindButton.Text = '...'
-            keybindButton.TextColor3 = Color3.fromRGB(100, 200, 255)
+        keybindButton.MouseButton1Click:Connect(
+            function()
+                listening = true
+                keybindButton.Text = "..."
+                keybindButton.TextColor3 = Color3.fromRGB(100, 200, 255)
 
-            local connection
-            connection = UserInputService.InputBegan:Connect(
-                function(input, gameProcessed)
-                    if gameProcessed then
-                        return
+                local connection
+                connection =
+                    UserInputService.InputBegan:Connect(
+                    function(input, gameProcessed)
+                        if gameProcessed then
+                            return
+                        end
+
+                        if input.UserInputType == Enum.UserInputType.Keyboard then
+                            local key = tostring(input.KeyCode.Name)
+                            updateKeybind("button", text, key)
+                            listening = false
+                            keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
+                            connection:Disconnect()
+                        end
                     end
+                )
+            end
+        )
 
-                    if input.UserInputType == Enum.UserInputType.Keyboard then
-                        local key = tostring(input.KeyCode.Name)
-                        updateKeybind("button", text, key)
-                        listening = false
-                        keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
-                        connection:Disconnect()
+        UserInputService.InputBegan:Connect(
+            function(input, gameProcessed)
+                if gameProcessed then
+                    return
+                end
+
+                if input.UserInputType == Enum.UserInputType.Keyboard then
+                    local pressedKey = tostring(input.KeyCode.Name)
+                    if allButtonElements[text] and allButtonElements[text].keybind == pressedKey then
+                        if callback then
+                            callback()
+                        end
                     end
                 end
-            )
-        end)
-        
-        UserInputService.InputBegan:Connect(function(input, gameProcessed)
-            if gameProcessed then
-                return
             end
-
-            if input.UserInputType == Enum.UserInputType.Keyboard then
-                local pressedKey = tostring(input.KeyCode.Name)
-                if
-                    allButtonElements[text]
-                    and allButtonElements[text].keybind == pressedKey
-                then
-                    if callback then
-                        callback()
-                    end
-                end
-            end
-        end)
+        )
 
         table.insert(allButtonFrames, buttonContainer)
         return buttonContainer
@@ -971,11 +1152,15 @@ function Syllinse:Load()
             acrylicLayer.Visible = false
             glassShine.Visible = false
             innerGlow.Visible = false
-            
-            TweenService:Create(mainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { 
-                Size = minimizedSize 
-            }):Play()
-            minimizeBtn.Text = '+'
+
+            TweenService:Create(
+                mainFrame,
+                TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                {
+                    Size = minimizedSize
+                }
+            ):Play()
+            minimizeBtn.Text = "+"
         else
             for _, buttonFrame in ipairs(allButtonFrames) do
                 buttonFrame.Visible = true
@@ -986,43 +1171,69 @@ function Syllinse:Load()
             acrylicLayer.Visible = true
             glassShine.Visible = true
             innerGlow.Visible = true
-            
-            TweenService:Create(mainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { 
-                Size = originalSize 
-            }):Play()
-            minimizeBtn.Text = '−'
+
+            TweenService:Create(
+                mainFrame,
+                TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                {
+                    Size = originalSize
+                }
+            ):Play()
+            minimizeBtn.Text = "−"
         end
     end
 
     minimizeBtn.MouseButton1Click:Connect(toggleMinimize)
 
     local function setupControlButton(button, hoverColor)
-        button.MouseEnter:Connect(function()
-            TweenService:Create(button, TweenInfo.new(0.1), { 
-                BackgroundColor3 = hoverColor 
-            }):Play()
-        end)
+        button.MouseEnter:Connect(
+            function()
+                TweenService:Create(
+                    button,
+                    TweenInfo.new(0.1),
+                    {
+                        BackgroundColor3 = hoverColor
+                    }
+                ):Play()
+            end
+        )
 
-        button.MouseLeave:Connect(function()
-            TweenService:Create(button, TweenInfo.new(0.1), { 
-                BackgroundColor3 = Color3.fromRGB(25, 25, 35) 
-            }):Play()
-        end)
+        button.MouseLeave:Connect(
+            function()
+                TweenService:Create(
+                    button,
+                    TweenInfo.new(0.1),
+                    {
+                        BackgroundColor3 = Color3.fromRGB(25, 25, 35)
+                    }
+                ):Play()
+            end
+        )
     end
 
     setupControlButton(minimizeBtn, Color3.fromRGB(60, 60, 80))
     setupControlButton(closeBtn, Color3.fromRGB(200, 60, 60))
 
-    closeBtn.MouseButton1Click:Connect(function()
-        TweenService:Create(mainFrame, TweenInfo.new(0.2), { 
-            BackgroundTransparency = 1 
-        }):Play()
-        TweenService:Create(acrylicLayer, TweenInfo.new(0.2), { 
-            BackgroundTransparency = 1 
-        }):Play()
-        wait(0.2)
-        screenGui:Destroy()
-    end)
+    closeBtn.MouseButton1Click:Connect(
+        function()
+            TweenService:Create(
+                mainFrame,
+                TweenInfo.new(0.2),
+                {
+                    BackgroundTransparency = 1
+                }
+            ):Play()
+            TweenService:Create(
+                acrylicLayer,
+                TweenInfo.new(0.2),
+                {
+                    BackgroundTransparency = 1
+                }
+            ):Play()
+            wait(0.2)
+            screenGui:Destroy()
+        end
+    )
 
     if UserInputService.TouchEnabled then
         mainFrame.Size = UDim2.new(0, 340, 0, 300)
@@ -1030,7 +1241,7 @@ function Syllinse:Load()
         minimizedSize = UDim2.new(0, 340, 0, 40)
 
         for _, buttonFrame in ipairs(allButtonFrames) do
-            local textButton = buttonFrame:FindFirstChildOfClass('TextButton')
+            local textButton = buttonFrame:FindFirstChildOfClass("TextButton")
             if textButton and textButton.TextSize then
                 textButton.TextSize = textButton.TextSize + 1
             end
@@ -1045,33 +1256,57 @@ function Syllinse:Load()
         if menuVisible then
             mainFrame.Visible = true
 
-            TweenService:Create(mainFrame, TweenInfo.new(0.3), {
-                Position = UDim2.new(0.9, -160, 0, 300),
-                Size = originalSize,
-                BackgroundTransparency = 0.15
-            }):Play()
-            
-            TweenService:Create(acrylicLayer, TweenInfo.new(0.3), {
-                BackgroundTransparency = 0.35
-            }):Play()
-            
-            TweenService:Create(toggleCircle, TweenInfo.new(0.3), {
-                BackgroundColor3 = Color3.fromRGB(0, 120, 220),
-            }):Play()
+            TweenService:Create(
+                mainFrame,
+                TweenInfo.new(0.3),
+                {
+                    Position = UDim2.new(0.9, -160, 0, 300),
+                    Size = originalSize,
+                    BackgroundTransparency = 0.15
+                }
+            ):Play()
+
+            TweenService:Create(
+                acrylicLayer,
+                TweenInfo.new(0.3),
+                {
+                    BackgroundTransparency = 0.35
+                }
+            ):Play()
+
+            TweenService:Create(
+                toggleCircle,
+                TweenInfo.new(0.3),
+                {
+                    BackgroundColor3 = Color3.fromRGB(0, 120, 220)
+                }
+            ):Play()
         else
-            TweenService:Create(mainFrame, TweenInfo.new(0.3), {
-                Position = UDim2.new(0.9, -160, 0, 150),
-                Size = UDim2.new(0, 0, 0, 0),
-                BackgroundTransparency = 1
-            }):Play()
-            
-            TweenService:Create(acrylicLayer, TweenInfo.new(0.3), {
-                BackgroundTransparency = 1
-            }):Play()
-            
-            TweenService:Create(toggleCircle, TweenInfo.new(0.3), {
-                BackgroundColor3 = Color3.fromRGB(12, 12, 18),
-            }):Play()
+            TweenService:Create(
+                mainFrame,
+                TweenInfo.new(0.3),
+                {
+                    Position = UDim2.new(0.9, -160, 0, 150),
+                    Size = UDim2.new(0, 0, 0, 0),
+                    BackgroundTransparency = 1
+                }
+            ):Play()
+
+            TweenService:Create(
+                acrylicLayer,
+                TweenInfo.new(0.3),
+                {
+                    BackgroundTransparency = 1
+                }
+            ):Play()
+
+            TweenService:Create(
+                toggleCircle,
+                TweenInfo.new(0.3),
+                {
+                    BackgroundColor3 = Color3.fromRGB(12, 12, 18)
+                }
+            ):Play()
 
             wait(0.3)
             mainFrame.Visible = false
@@ -1080,59 +1315,82 @@ function Syllinse:Load()
 
     toggleCircle.MouseButton1Click:Connect(toggleMenu)
 
-    toggleCircle.MouseEnter:Connect(function()
-        TweenService:Create(toggleCircle, TweenInfo.new(0.2), {
-            BackgroundColor3 = Color3.fromRGB(20, 20, 30),
-            Size = UDim2.new(0, 52, 0, 52),
-        }):Play()
-    end)
+    toggleCircle.MouseEnter:Connect(
+        function()
+            TweenService:Create(
+                toggleCircle,
+                TweenInfo.new(0.2),
+                {
+                    BackgroundColor3 = Color3.fromRGB(20, 20, 30),
+                    Size = UDim2.new(0, 52, 0, 52)
+                }
+            ):Play()
+        end
+    )
 
-    toggleCircle.MouseLeave:Connect(function()
-        TweenService:Create(toggleCircle, TweenInfo.new(0.2), {
-            BackgroundColor3 = menuVisible and Color3.fromRGB(0, 120, 220)
-                or Color3.fromRGB(12, 12, 18),
-            Size = UDim2.new(0, 48, 0, 48),
-        }):Play()
-    end)
+    toggleCircle.MouseLeave:Connect(
+        function()
+            TweenService:Create(
+                toggleCircle,
+                TweenInfo.new(0.2),
+                {
+                    BackgroundColor3 = menuVisible and Color3.fromRGB(0, 120, 220) or Color3.fromRGB(12, 12, 18),
+                    Size = UDim2.new(0, 48, 0, 48)
+                }
+            ):Play()
+        end
+    )
 
     local toggleDragging = false
     local toggleDragInput, toggleDragStart, toggleStartPos
 
     local function updateToggle(input)
         local delta = input.Position - toggleDragStart
-        toggleCircle.Position = UDim2.new(
+        toggleCircle.Position =
+            UDim2.new(
             toggleStartPos.X.Scale,
             toggleStartPos.X.Offset + delta.X,
             toggleStartPos.Y.Scale,
             toggleStartPos.Y.Offset + delta.Y
         )
     end
-    
-    toggleCircle.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            toggleDragging = true
-            toggleDragStart = input.Position
-            toggleStartPos = toggleCircle.Position
 
-            input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then
-                    toggleDragging = false
-                end
-            end)
+    toggleCircle.InputBegan:Connect(
+        function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                toggleDragging = true
+                toggleDragStart = input.Position
+                toggleStartPos = toggleCircle.Position
+
+                input.Changed:Connect(
+                    function()
+                        if input.UserInputState == Enum.UserInputState.End then
+                            toggleDragging = false
+                        end
+                    end
+                )
+            end
         end
-    end)
-    
-    toggleCircle.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-            toggleDragInput = input
+    )
+
+    toggleCircle.InputChanged:Connect(
+        function(input)
+            if
+                input.UserInputType == Enum.UserInputType.MouseMovement or
+                    input.UserInputType == Enum.UserInputType.Touch
+             then
+                toggleDragInput = input
+            end
         end
-    end)
-    
-    UserInputService.InputChanged:Connect(function(input)
-        if input == toggleDragInput and toggleDragging then
-            updateToggle(input)
+    )
+
+    UserInputService.InputChanged:Connect(
+        function(input)
+            if input == toggleDragInput and toggleDragging then
+                updateToggle(input)
+            end
         end
-    end)
+    )
 
     loadSettings()
 
