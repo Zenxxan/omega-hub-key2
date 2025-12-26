@@ -1359,6 +1359,7 @@ function Syllinse:Load()
         end
     )
 
+    loadSettings()
     local module = {}
     module.CreateButton = createButton
     module.CreateToggle = createToggle
