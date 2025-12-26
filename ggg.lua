@@ -646,8 +646,8 @@ function Syllinse:Load()
     local OtherTab = createTab("Others")
     local visualTab = createTab("Visual")
 
-    local allButtonElements = {}
-    local allToggleElements = {}
+    local keybindButtons = {}
+    local buttonStates = {}
 
     local function saveSettings()
         if not writefile then
@@ -655,18 +655,16 @@ function Syllinse:Load()
         end
 
         local settingsData = {
-            buttonKeybinds = {},
-            toggleKeybinds = {},
-            toggleStates = {}
+            keybinds = {},
+            toggles = {}
         }
 
-        for buttonName, elementInfo in pairs(allButtonElements) do
-            settingsData.buttonKeybinds[buttonName] = elementInfo.keybind or "NONE"
-        end
+        for buttonName, elementInfo in pairs(keybindButtons) do
+            settingsData.keybinds[buttonName] = elementInfo.currentKey or "NONE"
 
-        for toggleName, elementInfo in pairs(allToggleElements) do
-            settingsData.toggleKeybinds[toggleName] = elementInfo.keybind or "NONE"
-            settingsData.toggleStates[toggleName] = elementInfo.state or false
+            if elementInfo.toggleSwitch then
+                settingsData.toggles[buttonName] = buttonStates[buttonName] or false
+            end
         end
 
         pcall(
@@ -685,57 +683,42 @@ function Syllinse:Load()
             function()
                 local data = HttpService:JSONDecode(readfile("syllinse_settings.json"))
 
-                if data.buttonKeybinds then
-                    for buttonName, key in pairs(data.buttonKeybinds) do
-                        if allButtonElements[buttonName] then
-                            allButtonElements[buttonName].keybind = tostring(key)
-                            if allButtonElements[buttonName].keybindButton then
-                                allButtonElements[buttonName].keybindButton.Text = tostring(key)
+                if data.keybinds then
+                    for buttonName, key in pairs(data.keybinds) do
+                        if keybindButtons[buttonName] then
+                            keybindButtons[buttonName].currentKey = key
+                            if keybindButtons[buttonName].button then
+                                keybindButtons[buttonName].button.Text = key
                             end
                         end
                     end
                 end
 
-                if data.toggleKeybinds then
-                    for toggleName, key in pairs(data.toggleKeybinds) do
-                        if allToggleElements[toggleName] then
-                            allToggleElements[toggleName].keybind = tostring(key)
-                            if allToggleElements[toggleName].keybindButton then
-                                allToggleElements[toggleName].keybindButton.Text = tostring(key)
-                            end
-                        end
-                    end
-                end
+                if data.toggles then
+                    for buttonName, state in pairs(data.toggles) do
+                        if keybindButtons[buttonName] and keybindButtons[buttonName].toggleSwitch then
+                            buttonStates[buttonName] = state
 
-                if data.toggleStates then
-                    for toggleName, state in pairs(data.toggleStates) do
-                        if allToggleElements[toggleName] then
-                            buttonStates[toggleName] = state
-                            allToggleElements[toggleName].state = state
-
-                            local toggleSwitch = allToggleElements[toggleName].toggleSwitch
-                            local toggleFrame = allToggleElements[toggleName].toggleFrame
-
-                            if toggleSwitch then
-                                if state then
-                                    toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
-                                    toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
-                                else
-                                    toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
-                                    toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
+                            if state then
+                                keybindButtons[buttonName].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
+                                keybindButtons[buttonName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+                                if keybindButtons[buttonName].toggleFrame then
+                                    keybindButtons[buttonName].toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
                                 end
-                            end
 
-                            if toggleFrame then
-                                if state then
-                                    toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
-                                else
-                                    toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+                                if keybindButtons[buttonName].callback then
+                                    keybindButtons[buttonName].callback(true)
                                 end
-                            end
+                            else
+                                keybindButtons[buttonName].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
+                                keybindButtons[buttonName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
+                                if keybindButtons[buttonName].toggleFrame then
+                                    keybindButtons[buttonName].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+                                end
 
-                            if allToggleElements[toggleName].callback then
-                                allToggleElements[toggleName].callback(state)
+                                if keybindButtons[buttonName].callback then
+                                    keybindButtons[buttonName].callback(false)
+                                end
                             end
                         end
                     end
@@ -744,19 +727,14 @@ function Syllinse:Load()
         )
     end
 
-    local function updateKeybind(elementType, elementName, newKey)
-        if elementType == "button" and allButtonElements[elementName] then
-            allButtonElements[elementName].keybind = tostring(newKey)
-            if allButtonElements[elementName].keybindButton then
-                allButtonElements[elementName].keybindButton.Text = tostring(newKey)
+    local function updateKeybind(buttonName, newKey)
+        if keybindButtons[buttonName] then
+            keybindButtons[buttonName].currentKey = tostring(newKey)
+            if keybindButtons[buttonName].button then
+                keybindButtons[buttonName].button.Text = tostring(newKey)
             end
-        elseif elementType == "toggle" and allToggleElements[elementName] then
-            allToggleElements[elementName].keybind = tostring(newKey)
-            if allToggleElements[elementName].keybindButton then
-                allToggleElements[elementName].keybindButton.Text = tostring(newKey)
-            end
+            saveSettings()
         end
-        saveSettings()
     end
 
     local function createToggle(parent, text, callback, defaultKey)
@@ -824,14 +802,12 @@ function Syllinse:Load()
         keybindStroke.Transparency = 0.3
 
         buttonStates[text] = false
-        allToggleElements[text] = {
-            type = "toggle",
-            keybindButton = keybindButton,
-            keybind = defaultKey and tostring(defaultKey) or "NONE",
+        keybindButtons[text] = {
+            button = keybindButton,
+            currentKey = defaultKey and tostring(defaultKey) or "NONE",
             callback = callback,
             toggleSwitch = toggleSwitch,
-            toggleFrame = toggleFrame,
-            state = false
+            toggleFrame = toggleFrame
         }
 
         local listening = false
@@ -851,7 +827,7 @@ function Syllinse:Load()
 
                         if input.UserInputType == Enum.UserInputType.Keyboard then
                             local key = tostring(input.KeyCode.Name)
-                            updateKeybind("toggle", text, key)
+                            updateKeybind(text, key)
                             listening = false
                             keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
                             connection:Disconnect()
@@ -864,7 +840,6 @@ function Syllinse:Load()
         toggleFrame.MouseButton1Click:Connect(
             function()
                 buttonStates[text] = not buttonStates[text]
-                allToggleElements[text].state = buttonStates[text]
 
                 if buttonStates[text] then
                     TweenService:Create(
@@ -916,9 +891,8 @@ function Syllinse:Load()
 
                 if input.UserInputType == Enum.UserInputType.Keyboard then
                     local pressedKey = tostring(input.KeyCode.Name)
-                    if allToggleElements[text] and allToggleElements[text].keybind == pressedKey then
+                    if keybindButtons[text] and keybindButtons[text].currentKey == pressedKey then
                         buttonStates[text] = not buttonStates[text]
-                        allToggleElements[text].state = buttonStates[text]
 
                         if buttonStates[text] then
                             TweenService:Create(
@@ -1029,10 +1003,9 @@ function Syllinse:Load()
         actionStroke.Thickness = 1
         actionStroke.Transparency = 0.3
 
-        allButtonElements[text] = {
-            type = "button",
-            keybindButton = keybindButton,
-            keybind = defaultKey and tostring(defaultKey) or "NONE",
+        keybindButtons[text] = {
+            button = keybindButton,
+            currentKey = defaultKey and tostring(defaultKey) or "NONE",
             callback = callback
         }
 
@@ -1099,7 +1072,7 @@ function Syllinse:Load()
 
                         if input.UserInputType == Enum.UserInputType.Keyboard then
                             local key = tostring(input.KeyCode.Name)
-                            updateKeybind("button", text, key)
+                            updateKeybind(text, key)
                             listening = false
                             keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
                             connection:Disconnect()
@@ -1117,7 +1090,7 @@ function Syllinse:Load()
 
                 if input.UserInputType == Enum.UserInputType.Keyboard then
                     local pressedKey = tostring(input.KeyCode.Name)
-                    if allButtonElements[text] and allButtonElements[text].keybind == pressedKey then
+                    if keybindButtons[text] and keybindButtons[text].currentKey == pressedKey then
                         if callback then
                             callback()
                         end
