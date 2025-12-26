@@ -655,18 +655,18 @@ function Syllinse:Load()
         end
 
         local settingsData = {
-            keybinds = {},
-            toggles = {},
-            buttonStates = {}
+            buttonKeybinds = {},
+            toggleKeybinds = {},
+            toggleStates = {}
         }
 
         for buttonName, elementInfo in pairs(allButtonElements) do
-            settingsData.keybinds[buttonName] = elementInfo.keybind or "NONE"
+            settingsData.buttonKeybinds[buttonName] = elementInfo.keybind or "NONE"
         end
 
         for toggleName, elementInfo in pairs(allToggleElements) do
-            settingsData.toggles[toggleName] = elementInfo.keybind or "NONE"
-            settingsData.buttonStates[toggleName] = elementInfo.state or false
+            settingsData.toggleKeybinds[toggleName] = elementInfo.keybind or "NONE"
+            settingsData.toggleStates[toggleName] = elementInfo.state or false
         end
 
         pcall(
@@ -685,36 +685,30 @@ function Syllinse:Load()
             function()
                 local data = HttpService:JSONDecode(readfile("syllinse_settings.json"))
 
-                if data.keybinds then
-                    for buttonName, key in pairs(data.keybinds) do
+                if data.buttonKeybinds then
+                    for buttonName, key in pairs(data.buttonKeybinds) do
                         if allButtonElements[buttonName] then
                             allButtonElements[buttonName].keybind = tostring(key)
-                            if
-                                allButtonElements[buttonName].keybindButton and
-                                    allButtonElements[buttonName].keybindButton.Text
-                             then
+                            if allButtonElements[buttonName].keybindButton then
                                 allButtonElements[buttonName].keybindButton.Text = tostring(key)
                             end
                         end
                     end
                 end
 
-                if data.toggles then
-                    for toggleName, key in pairs(data.toggles) do
+                if data.toggleKeybinds then
+                    for toggleName, key in pairs(data.toggleKeybinds) do
                         if allToggleElements[toggleName] then
                             allToggleElements[toggleName].keybind = tostring(key)
-                            if
-                                allToggleElements[toggleName].keybindButton and
-                                    allToggleElements[toggleName].keybindButton.Text
-                             then
+                            if allToggleElements[toggleName].keybindButton then
                                 allToggleElements[toggleName].keybindButton.Text = tostring(key)
                             end
                         end
                     end
                 end
 
-                if data.buttonStates then
-                    for toggleName, state in pairs(data.buttonStates) do
+                if data.toggleStates then
+                    for toggleName, state in pairs(data.toggleStates) do
                         if allToggleElements[toggleName] then
                             buttonStates[toggleName] = state
                             allToggleElements[toggleName].state = state
@@ -814,7 +808,7 @@ function Syllinse:Load()
         keybindButton.BackgroundTransparency = 0.15
         keybindButton.BorderSizePixel = 0
         keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
-        keybindButton.Text = defaultKey and tostring(defaultKey) or ""
+        keybindButton.Text = defaultKey and tostring(defaultKey) or "NONE"
         keybindButton.Font = Enum.Font.GothamMedium
         keybindButton.TextSize = 10
         keybindButton.Parent = buttonContainer
@@ -833,7 +827,7 @@ function Syllinse:Load()
         allToggleElements[text] = {
             type = "toggle",
             keybindButton = keybindButton,
-            keybind = defaultKey and tostring(defaultKey) or "",
+            keybind = defaultKey and tostring(defaultKey) or "NONE",
             callback = callback,
             toggleSwitch = toggleSwitch,
             toggleFrame = toggleFrame,
@@ -998,7 +992,7 @@ function Syllinse:Load()
         keybindButton.BackgroundTransparency = 0.15
         keybindButton.BorderSizePixel = 0
         keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
-        keybindButton.Text = defaultKey and tostring(defaultKey) or ""
+        keybindButton.Text = defaultKey and tostring(defaultKey) or "NONE"
         keybindButton.Font = Enum.Font.GothamMedium
         keybindButton.TextSize = 10
         keybindButton.Parent = buttonContainer
@@ -1038,7 +1032,7 @@ function Syllinse:Load()
         allButtonElements[text] = {
             type = "button",
             keybindButton = keybindButton,
-            keybind = defaultKey and tostring(defaultKey) or "",
+            keybind = defaultKey and tostring(defaultKey) or "NONE",
             callback = callback
         }
 
