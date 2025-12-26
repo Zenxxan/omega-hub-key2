@@ -660,25 +660,18 @@ function Syllinse:Load()
             buttonStates = {}
         }
 
-        print("=== SAVING SETTINGS ===")
-
         for buttonName, elementInfo in pairs(allButtonElements) do
             settingsData.keybinds[buttonName] = elementInfo.keybind or "NONE"
-            print("Button keybind:", buttonName, "=", elementInfo.keybind)
         end
 
         for toggleName, elementInfo in pairs(allToggleElements) do
             settingsData.toggles[toggleName] = elementInfo.keybind or "NONE"
             settingsData.buttonStates[toggleName] = elementInfo.state or false
-            print("Toggle:", toggleName, "keybind =", elementInfo.keybind, "state =", elementInfo.state)
         end
-
-        print("JSON to save:", HttpService:JSONEncode(settingsData))
 
         pcall(
             function()
                 writefile("syllinse_settings.json", HttpService:JSONEncode(settingsData))
-                print("Settings saved!")
             end
         )
     end
@@ -821,7 +814,7 @@ function Syllinse:Load()
         keybindButton.BackgroundTransparency = 0.15
         keybindButton.BorderSizePixel = 0
         keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
-        keybindButton.Text = tostring(defaultKey or "NONE")
+        keybindButton.Text = defaultKey and tostring(defaultKey) or ""
         keybindButton.Font = Enum.Font.GothamMedium
         keybindButton.TextSize = 10
         keybindButton.Parent = buttonContainer
@@ -840,7 +833,7 @@ function Syllinse:Load()
         allToggleElements[text] = {
             type = "toggle",
             keybindButton = keybindButton,
-            keybind = tostring(defaultKey or "NONE"),
+            keybind = defaultKey and tostring(defaultKey) or "",
             callback = callback,
             toggleSwitch = toggleSwitch,
             toggleFrame = toggleFrame,
@@ -1005,7 +998,7 @@ function Syllinse:Load()
         keybindButton.BackgroundTransparency = 0.15
         keybindButton.BorderSizePixel = 0
         keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
-        keybindButton.Text = tostring(defaultKey or "NONE")
+        keybindButton.Text = defaultKey and tostring(defaultKey) or ""
         keybindButton.Font = Enum.Font.GothamMedium
         keybindButton.TextSize = 10
         keybindButton.Parent = buttonContainer
@@ -1045,7 +1038,7 @@ function Syllinse:Load()
         allButtonElements[text] = {
             type = "button",
             keybindButton = keybindButton,
-            keybind = tostring(defaultKey or "NONE"),
+            keybind = defaultKey and tostring(defaultKey) or "",
             callback = callback
         }
 
