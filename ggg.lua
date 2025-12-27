@@ -673,72 +673,44 @@ function Syllinse:Load()
 
     local function loadSettings()
         if not readfile or not isfile or not isfile("syllinse_settings.json") then
-            print("No settings file found")
             return
         end
 
-        print("Loading settings...")
-        print("keybindButtons count:", #keybindButtons)
-
         pcall(
             function()
-                local data = HttpService:JSONDecode(readfile("syllinse_settings.json"))
-
-                print("JSON has keybinds:", data.keybinds and #data.keybinds or 0)
-                print("JSON has toggles:", data.toggles and #data.toggles or 0)
+                local data = game:GetService("HttpService"):JSONDecode(readfile("syllinse_settings.json"))
 
                 if data.keybinds then
                     for buttonName, key in pairs(data.keybinds) do
-                        print("Loading keybind:", buttonName, "Key:", key)
                         if keybindButtons[buttonName] then
-                            print("  ✓ Found in keybindButtons")
                             keybindButtons[buttonName].currentKey = key
-                            if keybindButtons[buttonName].button then
-                                keybindButtons[buttonName].button.Text = key
-                            end
-                        else
-                            print("  ✗ NOT FOUND in keybindButtons!")
+                            keybindButtons[buttonName].button.Text = key
                         end
                     end
                 end
 
                 if data.toggles then
                     for buttonName, state in pairs(data.toggles) do
-                        print("Loading toggle state:", buttonName, "State:", state)
-                        if keybindButtons[buttonName] then
-                            print("  ✓ Found toggle")
-                            if keybindButtons[buttonName].toggleSwitch then
-                                print("  ✓ Has toggleSwitch")
-                                buttonStates[buttonName] = state
+                        if keybindButtons[buttonName] and keybindButtons[buttonName].toggleSwitch then
+                            buttonStates[buttonName] = state
 
-                                if state then
-                                    keybindButtons[buttonName].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
-                                    keybindButtons[buttonName].toggleSwitch.BackgroundColor3 =
-                                        Color3.fromRGB(0, 150, 255)
-                                    if keybindButtons[buttonName].toggleFrame then
-                                        keybindButtons[buttonName].toggleFrame.BackgroundColor3 =
-                                            Color3.fromRGB(20, 40, 60)
-                                    end
+                            if state then
+                                keybindButtons[buttonName].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
+                                keybindButtons[buttonName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+                                keybindButtons[buttonName].toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
 
-                                    if keybindButtons[buttonName].callback then
-                                        keybindButtons[buttonName].callback(true)
-                                    end
-                                else
-                                    keybindButtons[buttonName].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
-                                    keybindButtons[buttonName].toggleSwitch.BackgroundColor3 =
-                                        Color3.fromRGB(100, 100, 120)
-                                    if keybindButtons[buttonName].toggleFrame then
-                                        keybindButtons[buttonName].toggleFrame.BackgroundColor3 =
-                                            Color3.fromRGB(30, 30, 40)
-                                    end
+                                if keybindButtons[buttonName].callback then
+                                    keybindButtons[buttonName].callback(true)
+                                end
+                            else
+                                keybindButtons[buttonName].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
+                                keybindButtons[buttonName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
+                                keybindButtons[buttonName].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
 
-                                    if keybindButtons[buttonName].callback then
-                                        keybindButtons[buttonName].callback(false)
-                                    end
+                                if keybindButtons[buttonName].callback then
+                                    keybindButtons[buttonName].callback(false)
                                 end
                             end
-                        else
-                            print("  ✗ Toggle NOT FOUND in keybindButtons!")
                         end
                     end
                 end
