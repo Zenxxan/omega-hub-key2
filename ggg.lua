@@ -703,6 +703,8 @@ function Syllinse:Load()
                     end
                 end
 
+                local pendingCallbacks = {}
+
                 for buttonId, state in pairs(loadedSettings.toggles) do
                     if keybindButtons[buttonId] and keybindButtons[buttonId].toggleSwitch then
                         buttonStates[buttonId] = state
@@ -711,25 +713,39 @@ function Syllinse:Load()
                             keybindButtons[buttonId].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
                             keybindButtons[buttonId].toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
                             keybindButtons[buttonId].toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
-
-                            if keybindButtons[buttonId].callback then
-                                keybindButtons[buttonId].callback(true)
-                            end
                         else
                             keybindButtons[buttonId].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
                             keybindButtons[buttonId].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
                             keybindButtons[buttonId].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+                        end
 
-                            if keybindButtons[buttonId].callback then
-                                keybindButtons[buttonId].callback(false)
+                        table.insert(
+                            pendingCallbacks,
+                            {
+                                buttonId = buttonId,
+                                state = state
+                            }
+                        )
+                    end
+                end
+
+                if #pendingCallbacks > 0 then
+                    task.defer(
+                        function()
+                            for _, callbackInfo in ipairs(pendingCallbacks) do
+                                local buttonId = callbackInfo.buttonId
+                                local state = callbackInfo.state
+
+                                if keybindButtons[buttonId] and keybindButtons[buttonId].callback then
+                                    keybindButtons[buttonId].callback(state)
+                                end
                             end
                         end
-                    end
+                    )
                 end
             end
         )
     end
-
     local function updateKeybind(buttonId, newKey)
         if keybindButtons[buttonId] then
             keybindButtons[buttonId].currentKey = tostring(newKey)
