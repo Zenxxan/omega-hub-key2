@@ -23,6 +23,7 @@ function Syllinse:Load()
     screenGui.Parent = CoreGui
     screenGui.ResetOnSpawn = false
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    screenGui.DisplayOrder = 999
 
     local toggleCircle = Instance.new("ImageButton")
     toggleCircle.Name = "ToggleCircle"
