@@ -691,37 +691,32 @@ function Syllinse:Load()
             function()
                 local data = game:GetService("HttpService"):JSONDecode(readfile("syllinse_settings.json"))
 
-                if data.keybinds then
-                    for buttonName, key in pairs(data.keybinds) do
-                        if keybindButtons[buttonName] then
-                            keybindButtons[buttonName].currentKey = key
-                            keybindButtons[buttonName].button.Text = key
+                loadedSettings.keybinds = data.keybinds or {}
+                loadedSettings.toggles = data.toggles or {}
+
+                for buttonId, key in pairs(loadedSettings.keybinds) do
+                    if keybindButtons[buttonId] then
+                        keybindButtons[buttonId].currentKey = key
+                        if keybindButtons[buttonId].button then
+                            keybindButtons[buttonId].button.Text = key
                         end
                     end
                 end
 
-                if data.toggles then
-                    for buttonName, state in pairs(data.toggles) do
-                        if keybindButtons[buttonName] and keybindButtons[buttonName].toggleSwitch then
-                            buttonStates[buttonName] = state
+                for buttonId, state in pairs(loadedSettings.toggles) do
+                    if keybindButtons[buttonId] and keybindButtons[buttonId].toggleSwitch then
+                        buttonStates[buttonId] = state
 
-                            if state then
-                                keybindButtons[buttonName].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
-                                keybindButtons[buttonName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
-                                keybindButtons[buttonName].toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
-
-                                if keybindButtons[buttonName].callback then
-                                    keybindButtons[buttonName].callback(true)
-                                end
-                            else
-                                keybindButtons[buttonName].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
-                                keybindButtons[buttonName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
-                                keybindButtons[buttonName].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-
-                                if keybindButtons[buttonName].callback then
-                                    keybindButtons[buttonName].callback(false)
-                                end
-                            end
+                        if state then
+                            keybindButtons[buttonId].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
+                            keybindButtons[buttonId].toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+                            keybindButtons[buttonId].toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
+                            keybindButtons[buttonId].callback(true)
+                        else
+                            keybindButtons[buttonId].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
+                            keybindButtons[buttonId].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
+                            keybindButtons[buttonId].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+                            keybindButtons[buttonId].callback(false)
                         end
                     end
                 end
