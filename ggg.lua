@@ -653,7 +653,10 @@ function Syllinse:Load()
     local keybindButtons = {}
     local buttonStates = {}
 
-    local loadedSettings = {}
+    local loadedSettings = {
+        keybinds = {},
+        toggles = {}
+    }
 
     local function saveSettings()
         if not writefile then
@@ -692,31 +695,6 @@ function Syllinse:Load()
                 loadedSettings.toggles = data.toggles or {}
             end
         )
-    end
-
-    local function applyLoadedSettings()
-        for buttonId, key in pairs(loadedSettings.keybinds) do
-            if keybindButtons[buttonId] then
-                keybindButtons[buttonId].currentKey = key
-                keybindButtons[buttonId].button.Text = key
-            end
-        end
-
-        for buttonId, state in pairs(loadedSettings.toggles) do
-            if keybindButtons[buttonId] and keybindButtons[buttonId].toggleSwitch then
-                buttonStates[buttonId] = state
-
-                if state then
-                    keybindButtons[buttonId].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
-                    keybindButtons[buttonId].toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
-                    keybindButtons[buttonId].toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
-                else
-                    keybindButtons[buttonId].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
-                    keybindButtons[buttonId].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
-                    keybindButtons[buttonId].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-                end
-            end
-        end
     end
 
     local function updateKeybind(buttonId, newKey)
@@ -795,8 +773,9 @@ function Syllinse:Load()
 
         local buttonId = parent.Name .. "_" .. text
 
-        local savedKey = loadedSettings.keybinds and loadedSettings.keybinds[buttonId]
-        local savedState = loadedSettings.toggles and loadedSettings.toggles[buttonId]
+        -- Check if we have saved settings for this button
+        local savedKey = loadedSettings.keybinds[buttonId]
+        local savedState = loadedSettings.toggles[buttonId]
 
         local finalKey = savedKey or (defaultKey and tostring(defaultKey) or "NONE")
         local finalState = savedState or false
@@ -810,6 +789,7 @@ function Syllinse:Load()
             toggleFrame = toggleFrame
         }
 
+        -- Set the UI to match saved state
         keybindButton.Text = finalKey
 
         if finalState then
@@ -1021,7 +1001,8 @@ function Syllinse:Load()
 
         local buttonId = parent.Name .. "_" .. text
 
-        local savedKey = loadedSettings.keybinds and loadedSettings.keybinds[buttonId]
+        -- Check if we have saved settings for this button
+        local savedKey = loadedSettings.keybinds[buttonId]
         local finalKey = savedKey or (defaultKey and tostring(defaultKey) or "NONE")
 
         keybindButtons[buttonId] = {
