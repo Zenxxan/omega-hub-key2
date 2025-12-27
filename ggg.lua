@@ -2,7 +2,6 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
-
 local Syllinse = {}
 
 function Syllinse:Load()
@@ -23,7 +22,6 @@ function Syllinse:Load()
     screenGui.Parent = CoreGui
     screenGui.ResetOnSpawn = false
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    screenGui.DisplayOrder = 999
 
     local toggleCircle = Instance.new("ImageButton")
     toggleCircle.Name = "ToggleCircle"
@@ -665,9 +663,11 @@ function Syllinse:Load()
             toggles = {}
         }
 
-        for buttonName, keybindInfo in pairs(keybindButtons) do
-            settingsData.keybinds[buttonName] = keybindInfo.currentKey
-            settingsData.toggles[buttonName] = buttonStates[buttonName]
+        for buttonId, keybindInfo in pairs(keybindButtons) do
+            settingsData.keybinds[buttonId] = keybindInfo.currentKey
+            if keybindInfo.toggleSwitch then
+                settingsData.toggles[buttonId] = buttonStates[buttonId]
+            end
         end
 
         pcall(
@@ -687,34 +687,34 @@ function Syllinse:Load()
                 local data = game:GetService("HttpService"):JSONDecode(readfile("syllinse_settings.json"))
 
                 if data.keybinds then
-                    for buttonName, key in pairs(data.keybinds) do
-                        if keybindButtons[buttonName] then
-                            keybindButtons[buttonName].currentKey = key
-                            keybindButtons[buttonName].button.Text = key
+                    for buttonId, key in pairs(data.keybinds) do
+                        if keybindButtons[buttonId] then
+                            keybindButtons[buttonId].currentKey = key
+                            keybindButtons[buttonId].button.Text = key
                         end
                     end
                 end
 
                 if data.toggles then
-                    for buttonName, state in pairs(data.toggles) do
-                        if keybindButtons[buttonName] and keybindButtons[buttonName].toggleSwitch then
-                            buttonStates[buttonName] = state
+                    for buttonId, state in pairs(data.toggles) do
+                        if keybindButtons[buttonId] and keybindButtons[buttonId].toggleSwitch then
+                            buttonStates[buttonId] = state
 
                             if state then
-                                keybindButtons[buttonName].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
-                                keybindButtons[buttonName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
-                                keybindButtons[buttonName].toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
+                                keybindButtons[buttonId].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
+                                keybindButtons[buttonId].toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+                                keybindButtons[buttonId].toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
 
-                                if keybindButtons[buttonName].callback then
-                                    keybindButtons[buttonName].callback(true)
+                                if keybindButtons[buttonId].callback then
+                                    keybindButtons[buttonId].callback(true)
                                 end
                             else
-                                keybindButtons[buttonName].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
-                                keybindButtons[buttonName].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
-                                keybindButtons[buttonName].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+                                keybindButtons[buttonId].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
+                                keybindButtons[buttonId].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
+                                keybindButtons[buttonId].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
 
-                                if keybindButtons[buttonName].callback then
-                                    keybindButtons[buttonName].callback(false)
+                                if keybindButtons[buttonId].callback then
+                                    keybindButtons[buttonId].callback(false)
                                 end
                             end
                         end
@@ -724,11 +724,11 @@ function Syllinse:Load()
         )
     end
 
-    local function updateKeybind(buttonName, newKey)
-        if keybindButtons[buttonName] then
-            keybindButtons[buttonName].currentKey = tostring(newKey)
-            if keybindButtons[buttonName].button then
-                keybindButtons[buttonName].button.Text = tostring(newKey)
+    local function updateKeybind(buttonId, newKey)
+        if keybindButtons[buttonId] then
+            keybindButtons[buttonId].currentKey = tostring(newKey)
+            if keybindButtons[buttonId].button then
+                keybindButtons[buttonId].button.Text = tostring(newKey)
             end
             saveSettings()
         end
@@ -798,8 +798,9 @@ function Syllinse:Load()
         keybindStroke.Thickness = 1
         keybindStroke.Transparency = 0.3
 
-        buttonStates[text] = false
-        keybindButtons[text] = {
+        local buttonId = parent.Name .. "_" .. text
+        buttonStates[buttonId] = false
+        keybindButtons[buttonId] = {
             button = keybindButton,
             currentKey = defaultKey and tostring(defaultKey) or "NONE",
             callback = callback,
@@ -824,7 +825,7 @@ function Syllinse:Load()
 
                         if input.UserInputType == Enum.UserInputType.Keyboard then
                             local key = tostring(input.KeyCode.Name)
-                            updateKeybind(text, key)
+                            updateKeybind(buttonId, key)
                             listening = false
                             keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
                             connection:Disconnect()
@@ -836,9 +837,9 @@ function Syllinse:Load()
 
         toggleFrame.MouseButton1Click:Connect(
             function()
-                buttonStates[text] = not buttonStates[text]
+                buttonStates[buttonId] = not buttonStates[buttonId]
 
-                if buttonStates[text] then
+                if buttonStates[buttonId] then
                     TweenService:Create(
                         toggleSwitch,
                         TweenInfo.new(0.2),
@@ -875,7 +876,7 @@ function Syllinse:Load()
                 saveSettings()
 
                 if callback then
-                    callback(buttonStates[text])
+                    callback(buttonStates[buttonId])
                 end
             end
         )
@@ -888,47 +889,51 @@ function Syllinse:Load()
 
                 if input.UserInputType == Enum.UserInputType.Keyboard then
                     local pressedKey = tostring(input.KeyCode.Name)
-                    if keybindButtons[text] and keybindButtons[text].currentKey == pressedKey then
-                        buttonStates[text] = not buttonStates[text]
+                    for id, keybindInfo in pairs(keybindButtons) do
+                        if keybindInfo.currentKey == pressedKey and keybindInfo.toggleSwitch then
+                            if id == buttonId then
+                                buttonStates[buttonId] = not buttonStates[buttonId]
 
-                        if buttonStates[text] then
-                            TweenService:Create(
-                                toggleSwitch,
-                                TweenInfo.new(0.2),
-                                {
-                                    Position = UDim2.new(0.55, 0, 0.15, 0),
-                                    BackgroundColor3 = Color3.fromRGB(0, 150, 255)
-                                }
-                            ):Play()
-                            TweenService:Create(
-                                toggleFrame,
-                                TweenInfo.new(0.2),
-                                {
-                                    BackgroundColor3 = Color3.fromRGB(20, 40, 60)
-                                }
-                            ):Play()
-                        else
-                            TweenService:Create(
-                                toggleSwitch,
-                                TweenInfo.new(0.2),
-                                {
-                                    Position = UDim2.new(0.05, 0, 0.15, 0),
-                                    BackgroundColor3 = Color3.fromRGB(100, 100, 120)
-                                }
-                            ):Play()
-                            TweenService:Create(
-                                toggleFrame,
-                                TweenInfo.new(0.2),
-                                {
-                                    BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-                                }
-                            ):Play()
-                        end
+                                if buttonStates[buttonId] then
+                                    TweenService:Create(
+                                        toggleSwitch,
+                                        TweenInfo.new(0.2),
+                                        {
+                                            Position = UDim2.new(0.55, 0, 0.15, 0),
+                                            BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+                                        }
+                                    ):Play()
+                                    TweenService:Create(
+                                        toggleFrame,
+                                        TweenInfo.new(0.2),
+                                        {
+                                            BackgroundColor3 = Color3.fromRGB(20, 40, 60)
+                                        }
+                                    ):Play()
+                                else
+                                    TweenService:Create(
+                                        toggleSwitch,
+                                        TweenInfo.new(0.2),
+                                        {
+                                            Position = UDim2.new(0.05, 0, 0.15, 0),
+                                            BackgroundColor3 = Color3.fromRGB(100, 100, 120)
+                                        }
+                                    ):Play()
+                                    TweenService:Create(
+                                        toggleFrame,
+                                        TweenInfo.new(0.2),
+                                        {
+                                            BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+                                        }
+                                    ):Play()
+                                end
 
-                        saveSettings()
+                                saveSettings()
 
-                        if callback then
-                            callback(buttonStates[text])
+                                if callback then
+                                    callback(buttonStates[buttonId])
+                                end
+                            end
                         end
                     end
                 end
@@ -1000,7 +1005,8 @@ function Syllinse:Load()
         actionStroke.Thickness = 1
         actionStroke.Transparency = 0.3
 
-        keybindButtons[text] = {
+        local buttonId = parent.Name .. "_" .. text
+        keybindButtons[buttonId] = {
             button = keybindButton,
             currentKey = defaultKey and tostring(defaultKey) or "NONE",
             callback = callback
@@ -1069,7 +1075,7 @@ function Syllinse:Load()
 
                         if input.UserInputType == Enum.UserInputType.Keyboard then
                             local key = tostring(input.KeyCode.Name)
-                            updateKeybind(text, key)
+                            updateKeybind(buttonId, key)
                             listening = false
                             keybindButton.TextColor3 = Color3.fromRGB(220, 220, 220)
                             connection:Disconnect()
@@ -1087,9 +1093,11 @@ function Syllinse:Load()
 
                 if input.UserInputType == Enum.UserInputType.Keyboard then
                     local pressedKey = tostring(input.KeyCode.Name)
-                    if keybindButtons[text] and keybindButtons[text].currentKey == pressedKey then
-                        if callback then
-                            callback()
+                    for id, keybindInfo in pairs(keybindButtons) do
+                        if keybindInfo.currentKey == pressedKey and not keybindInfo.toggleSwitch then
+                            if id == buttonId and keybindInfo.callback then
+                                keybindInfo.callback()
+                            end
                         end
                     end
                 end
