@@ -658,14 +658,6 @@ function Syllinse:Load()
         toggles = {}
     }
 
-        local keybindButtons = {}
-    local buttonStates = {}
-
-    local loadedSettings = {
-        keybinds = {},
-        toggles = {}
-    }
-
     local function saveSettings()
         if not writefile then
             return
@@ -723,9 +715,6 @@ function Syllinse:Load()
                             keybindButtons[id].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
                             keybindButtons[id].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
                             keybindButtons[id].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-                        end
-                        if keybindButtons[id].callback then
-                            keybindButtons[id].callback(state)
                         end
                     end
                 end
@@ -813,7 +802,12 @@ function Syllinse:Load()
         local savedState = loadedSettings.toggles[toggleId]
 
         local finalKey = savedKey or (defaultKey and tostring(defaultKey) or "NONE")
-        local finalState = savedState or false
+        local finalState
+        if savedState == nil then
+            finalState = false
+       else
+            finalState = savedState
+       end
 
         buttonStates[toggleId] = finalState
         keybindButtons[toggleId] = {
