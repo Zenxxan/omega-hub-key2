@@ -826,8 +826,6 @@ function Syllinse:Load()
             end
         end
 
-        updateToggle(finalState)
-
         toggleFrame.MouseButton1Click:Connect(
             function()
                 updateToggle(not buttonStates[toggleId])
