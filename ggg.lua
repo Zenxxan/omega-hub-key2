@@ -711,10 +711,18 @@ function Syllinse:Load()
                             keybindButtons[buttonId].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
                             keybindButtons[buttonId].toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
                             keybindButtons[buttonId].toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
+
+                            if keybindButtons[buttonId].callback then
+                                keybindButtons[buttonId].callback(true)
+                            end
                         else
                             keybindButtons[buttonId].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
                             keybindButtons[buttonId].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
                             keybindButtons[buttonId].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+
+                            if keybindButtons[buttonId].callback then
+                                keybindButtons[buttonId].callback(false)
+                            end
                         end
                     end
                 end
