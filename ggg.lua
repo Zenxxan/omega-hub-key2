@@ -682,7 +682,7 @@ function Syllinse:Load()
         )
     end
 
-    local function loadSettings()
+        local function loadSettings()
         if not readfile or not isfile or not isfile("syllinse_settings.json") then
             return
         end
@@ -703,8 +703,6 @@ function Syllinse:Load()
                     end
                 end
 
-                local pendingCallbacks = {}
-
                 for buttonId, state in pairs(loadedSettings.toggles) do
                     if keybindButtons[buttonId] and keybindButtons[buttonId].toggleSwitch then
                         buttonStates[buttonId] = state
@@ -718,30 +716,13 @@ function Syllinse:Load()
                             keybindButtons[buttonId].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
                             keybindButtons[buttonId].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
                         end
+                        
 
-                        table.insert(
-                            pendingCallbacks,
-                            {
-                                buttonId = buttonId,
-                                state = state
-                            }
-                        )
-                    end
-                end
-
-                if #pendingCallbacks > 0 then
-                    task.defer(
-                        function()
-                            for _, callbackInfo in ipairs(pendingCallbacks) do
-                                local buttonId = callbackInfo.buttonId
-                                local state = callbackInfo.state
-
-                                if keybindButtons[buttonId] and keybindButtons[buttonId].callback then
-                                    keybindButtons[buttonId].callback(state)
-                                end
-                            end
+                        if keybindButtons[buttonId].callback then
+                            task.wait(1)
+                            keybindButtons[buttonId].callback(state)
                         end
-                    )
+                    end
                 end
             end
         )
