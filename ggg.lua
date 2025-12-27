@@ -824,23 +824,16 @@ function Syllinse:Load()
             toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
             toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
             toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
-            if callback then
-                task.spawn(function()
-                    task.wait(0.5)
-                    callback(true)
-                end)
-            end
-        else
+       else
             toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
             toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
             toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-            if callback then
-                task.spawn(function()
-                    task.wait(0.5)
-                    callback(false)
-                end)
-            end
         end
+
+       if callback then
+           callback(finalState)
+       end
+
 
         local listening = false
         keybindButton.MouseButton1Click:Connect(
