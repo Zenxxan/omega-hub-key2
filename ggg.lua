@@ -771,7 +771,7 @@ function Syllinse:Load()
         keybindStroke.Thickness = 1
         keybindStroke.Transparency = 0.3
 
-        local buttonId = parent.Name .. "_" .. text
+        local buttonId = text
 
         -- Check if we have saved settings for this button
         local savedKey = loadedSettings.keybinds[buttonId]
@@ -789,7 +789,6 @@ function Syllinse:Load()
             toggleFrame = toggleFrame
         }
 
-        -- Set the UI to match saved state
         keybindButton.Text = finalKey
 
         if finalState then
@@ -999,9 +998,8 @@ function Syllinse:Load()
         actionStroke.Thickness = 1
         actionStroke.Transparency = 0.3
 
-        local buttonId = parent.Name .. "_" .. text
+        local buttonId = text
 
-        -- Check if we have saved settings for this button
         local savedKey = loadedSettings.keybinds[buttonId]
         local finalKey = savedKey or (defaultKey and tostring(defaultKey) or "NONE")
 
