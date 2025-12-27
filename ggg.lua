@@ -798,7 +798,6 @@ function Syllinse:Load()
 
         local buttonId = text
 
-        -- Check if we have saved settings for this button
         local savedKey = loadedSettings.keybinds[buttonId]
         local savedState = loadedSettings.toggles[buttonId]
 
