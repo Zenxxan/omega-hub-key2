@@ -693,6 +693,31 @@ function Syllinse:Load()
 
                 loadedSettings.keybinds = data.keybinds or {}
                 loadedSettings.toggles = data.toggles or {}
+
+                for buttonId, key in pairs(loadedSettings.keybinds) do
+                    if keybindButtons[buttonId] then
+                        keybindButtons[buttonId].currentKey = key
+                        if keybindButtons[buttonId].button then
+                            keybindButtons[buttonId].button.Text = key
+                        end
+                    end
+                end
+
+                for buttonId, state in pairs(loadedSettings.toggles) do
+                    if keybindButtons[buttonId] and keybindButtons[buttonId].toggleSwitch then
+                        buttonStates[buttonId] = state
+
+                        if state then
+                            keybindButtons[buttonId].toggleSwitch.Position = UDim2.new(0.55, 0, 0.15, 0)
+                            keybindButtons[buttonId].toggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+                            keybindButtons[buttonId].toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 40, 60)
+                        else
+                            keybindButtons[buttonId].toggleSwitch.Position = UDim2.new(0.05, 0, 0.15, 0)
+                            keybindButtons[buttonId].toggleSwitch.BackgroundColor3 = Color3.fromRGB(100, 100, 120)
+                            keybindButtons[buttonId].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+                        end
+                    end
+                end
             end
         )
     end
