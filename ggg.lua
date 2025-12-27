@@ -659,17 +659,14 @@ function Syllinse:Load()
             toggles = {}
         }
 
-        for buttonName, elementInfo in pairs(keybindButtons) do
-            settingsData.keybinds[buttonName] = elementInfo.currentKey or "NONE"
-
-            if elementInfo.toggleSwitch then
-                settingsData.toggles[buttonName] = buttonStates[buttonName] or false
-            end
+        for buttonName, keybindInfo in pairs(keybindButtons) do
+            settingsData.keybinds[buttonName] = keybindInfo.currentKey
+            settingsData.toggles[buttonName] = buttonStates[buttonName]
         end
 
         pcall(
             function()
-                writefile("syllinse_settings.json", HttpService:JSONEncode(settingsData))
+                writefile("syllinse_settings.json", game:GetService("HttpService"):JSONEncode(settingsData))
             end
         )
     end
@@ -1382,7 +1379,7 @@ function Syllinse:Load()
     )
 
     loadSettings()
-    
+
     local module = {}
     module.CreateButton = createButton
     module.CreateToggle = createToggle
