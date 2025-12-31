@@ -15,7 +15,7 @@ function Syllinse:Load()
     local HttpService = game:GetService("HttpService")
 
     local player = Players.LocalPlayer
-    local CoreGui = player:WaitForChild("PlayerGui")
+    local CoreGui = game:GetService("CoreGui")
 
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = "ShadowStealHelper"
