@@ -9,13 +9,13 @@ function Syllinse:Load()
     local RunService = game:GetService("RunService")
     local Workspace = game:GetService("Workspace")
     local ReplicatedStorage = game:GetService("ReplicatedStorage")
-    local CoreGui = game:GetService("CoreGui")
     local UserInputService = game:GetService("UserInputService")
     local TweenService = game:GetService("TweenService")
     local Lighting = game:GetService("Lighting")
     local HttpService = game:GetService("HttpService")
 
     local player = Players.LocalPlayer
+    local CoreGui = player:WaitForChild("PlayerGui")
 
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = "ShadowStealHelper"
