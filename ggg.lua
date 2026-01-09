@@ -51,7 +51,7 @@ function Syllinse:Load()
     toggleCircle.Name = "ToggleCircle"
     toggleCircle.Size = UDim2.new(0, toggleSize, 0, toggleSize)
     toggleCircle.Position = UDim2.new(0, 20, 0, 20)
-    toggleCircle.Image = "rbxassetid://10734976145"
+    toggleCircle.Image = "rbxassetid://96928078987243"
     toggleCircle.ImageColor3 = Color3.fromRGB(255, 255, 255)
     toggleCircle.BackgroundTransparency = 1
     toggleCircle.Parent = screenGui
@@ -64,7 +64,7 @@ function Syllinse:Load()
     local toggleAcrylic = Instance.new("Frame")
     toggleAcrylic.Parent = toggleCircle
     toggleAcrylic.BackgroundColor3 = Color3.fromRGB(22, 22, 28)
-    toggleAcrylic.BackgroundTransparency = 0.1
+    toggleAcrylic.BackgroundTransparency = 1
     toggleAcrylic.Size = UDim2.new(1, 0, 1, 0)
     toggleAcrylic.BorderSizePixel = 0
     toggleAcrylic.ZIndex = -1
