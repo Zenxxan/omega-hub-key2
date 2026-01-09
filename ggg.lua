@@ -28,17 +28,23 @@ function Syllinse:Load()
     local isMobile = UserInputService.TouchEnabled
     
     local function calculateScale()
-        local baseResolution = Vector2.new(1920, 1080)
-        local currentResolution = workspace.CurrentCamera.ViewportSize
-
-        local scaleX = currentResolution.X / baseResolution.X
-        local scaleY = currentResolution.Y / baseResolution.Y
-
-        local scale = (scaleX + scaleY) / 2
-        scale = math.clamp(scale, 0.9, 1.6)
-
-        return scale
+       local baseResolution = Vector2.new(1920, 1080)
+       local currentResolution = screenSize
+       local scaleX = currentResolution.X / baseResolution.X
+       local scaleY = currentResolution.Y / baseResolution.Y
+       local minScale = math.min(scaleX, scaleY)
+    
+       if currentResolution.X > 3840 then  -- 4K
+            return minScale * 1.1  -- 110% (bigger than normal!)
+       elseif currentResolution.X > 2560 then
+            return minScale * 1.0  -- 100%
+       elseif currentResolution.X > 1920 then
+            return minScale * 0.9  -- 90%
+       else
+            return minScale * 0.85  -- 85%
+       end
     end
+
     
     local uiScale = calculateScale()
     
@@ -381,7 +387,7 @@ function Syllinse:Load()
         toggleContainer.Parent = contentFrame
 
         local toggleFrame = Instance.new("ImageButton")
-        toggleFrame.Size = UDim2.new(0.5, 0, 0.65, 0)
+        toggleFrame.Size = UDim2.new(0.5, 0, 0.38, 0)
         toggleFrame.Position = UDim2.new(0, 0, 0.5, 0)
         toggleFrame.AnchorPoint = Vector2.new(0, 0.5)
         toggleFrame.BackgroundColor3 = Color3.fromRGB(60, 50, 50)
@@ -392,8 +398,8 @@ function Syllinse:Load()
         toggleFrame.ZIndex = 2
 
         local toggleSwitch = Instance.new("Frame")
-        toggleSwitch.Size = UDim2.new(0.4, 0, 1, 0)
-        toggleSwitch.Position = UDim2.new(0.05, 0, 0.5, 0)
+        toggleSwitch.Size = UDim2.new(0.32, 0, 0.78, 0)
+        toggleSwitch.Position = UDim2.new(0.06, 0, 0.5, 0)
         toggleSwitch.AnchorPoint = Vector2.new(0, 0.5)
         toggleSwitch.BackgroundColor3 = Color3.fromRGB(170, 55, 55)
         toggleSwitch.BackgroundTransparency = 0.05
@@ -454,7 +460,7 @@ function Syllinse:Load()
             buttonStates[toggleId] = state
             if state then
                 TweenService:Create(toggleSwitch, TweenInfo.new(0.07), {
-                    Position = UDim2.new(0.55, 0, 0.5, 0),
+                    Position = UDim2.new(0.62, 0, 0.5, 0),
                     BackgroundColor3 = Color3.fromRGB(55, 230, 130)
                 }):Play()
                 TweenService:Create(toggleFrame, TweenInfo.new(0.07), {
@@ -462,7 +468,7 @@ function Syllinse:Load()
                 }):Play()
             else
                 TweenService:Create(toggleSwitch, TweenInfo.new(0.07), {
-                    Position = UDim2.new(0.05, 0, 0.5, 0),
+                    Position = UDim2.new(0.06, 0, 0.5, 0),
                     BackgroundColor3 = Color3.fromRGB(170, 55, 55)
                 }):Play()
                 TweenService:Create(toggleFrame, TweenInfo.new(0.07), {
