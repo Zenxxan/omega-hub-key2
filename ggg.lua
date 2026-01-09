@@ -25,7 +25,6 @@ function Syllinse:Load()
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
     local screenSize = workspace.CurrentCamera.ViewportSize
-    local isMobile = UserInputService.TouchEnabled
     
     local function calculateScale()
         local baseResolution = Vector2.new(1920, 1080)
@@ -39,7 +38,6 @@ function Syllinse:Load()
 
         return scale
     end
-
     
     local uiScale = calculateScale()
     
@@ -328,11 +326,25 @@ function Syllinse:Load()
         end
     end
 
+    local toggleCount = 0
+    local buttonCount = 0
+    
+    local function getLayoutOrder()
+        local totalItems = toggleCount + buttonCount
+        if totalItems % 2 == 0 then
+            return math.floor(totalItems / 2) + 1
+        else
+            return math.ceil(totalItems / 2)
+        end
+    end
+
     local function createToggle(parent, text, callback, defaultKey)
         local buttonContainer = Instance.new("Frame")
         buttonContainer.Size = UDim2.new(1, 0, 1, 0)
         buttonContainer.BackgroundTransparency = 1
         buttonContainer.Parent = parent
+        toggleCount = toggleCount + 1
+        buttonContainer.LayoutOrder = getLayoutOrder()
 
         local containerBackground = Instance.new("Frame")
         containerBackground.Size = UDim2.new(1, 0, 1, 0)
@@ -533,6 +545,8 @@ function Syllinse:Load()
         buttonContainer.Size = UDim2.new(1, 0, 1, 0)
         buttonContainer.BackgroundTransparency = 1
         buttonContainer.Parent = parent
+        buttonCount = buttonCount + 1
+        buttonContainer.LayoutOrder = getLayoutOrder()
 
         local containerBackground = Instance.new("Frame")
         containerBackground.Size = UDim2.new(1, 0, 1, 0)
