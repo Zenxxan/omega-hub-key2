@@ -387,7 +387,7 @@ function Syllinse:Load()
         toggleFrame.ZIndex = 2
 
         local toggleSwitch = Instance.new("Frame")
-        toggleSwitch.Size = UDim2.new(0.4, 0, 0.85, 0)
+        toggleSwitch.Size = UDim2.new(0.4, 0, 1, 0)
         toggleSwitch.Position = UDim2.new(0.05, 0, 0.5, 0)
         toggleSwitch.AnchorPoint = Vector2.new(0, 0.5)
         toggleSwitch.BackgroundColor3 = Color3.fromRGB(170, 55, 55)
