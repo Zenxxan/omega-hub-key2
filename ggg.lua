@@ -32,7 +32,7 @@ function Syllinse:Load()
         local currentResolution = screenSize
         local scaleX = currentResolution.X / baseResolution.X
         local scaleY = currentResolution.Y / baseResolution.Y
-        return math.max(0.7, math.min(scaleX, scaleY) * 1.2)
+        return math.min(scaleX, scaleY) * 1.2
     end
     
     local uiScale = calculateScale()
@@ -376,7 +376,7 @@ function Syllinse:Load()
         toggleContainer.Parent = contentFrame
 
         local toggleFrame = Instance.new("ImageButton")
-        toggleFrame.Size = UDim2.new(0.5, 0, math.floor(0.65 * uiScale), 0)
+        toggleFrame.Size = UDim2.new(0.5, 0, 0.8, 0)
         toggleFrame.Position = UDim2.new(0, 0, 0.5, 0)
         toggleFrame.AnchorPoint = Vector2.new(0, 0.5)
         toggleFrame.BackgroundColor3 = Color3.fromRGB(60, 50, 50)
@@ -387,7 +387,7 @@ function Syllinse:Load()
         toggleFrame.ZIndex = 2
 
         local toggleSwitch = Instance.new("Frame")
-        toggleSwitch.Size = UDim2.new(math.floor(0.4 * uiScale), 0, math.floor(0.85 * uiScale), 0)
+        toggleSwitch.Size = UDim2.new(0.5, 0, 0.9, 0)
         toggleSwitch.Position = UDim2.new(0.05, 0, 0.5, 0)
         toggleSwitch.AnchorPoint = Vector2.new(0, 0.5)
         toggleSwitch.BackgroundColor3 = Color3.fromRGB(170, 55, 55)
@@ -405,7 +405,7 @@ function Syllinse:Load()
         switchCorner.Parent = toggleSwitch
 
         local keybindButton = Instance.new("TextButton")
-        keybindButton.Size = UDim2.new(0.5, 0, math.floor(0.65 * uiScale), 0)
+        keybindButton.Size = UDim2.new(0.5, 0, 0.8, 0)
         keybindButton.Position = UDim2.new(0.5, 0, 0.5, 0)
         keybindButton.AnchorPoint = Vector2.new(0, 0.5)
         keybindButton.BackgroundColor3 = Color3.fromRGB(42, 42, 52)
@@ -576,7 +576,7 @@ function Syllinse:Load()
         buttonContainerRight.Parent = contentFrame
 
         local actionButton = Instance.new("TextButton")
-        actionButton.Size = UDim2.new(0.5, 0, math.floor(0.65 * uiScale), 0)
+        actionButton.Size = UDim2.new(0.5, 0, 0.8, 0)
         actionButton.Position = UDim2.new(0, 0, 0.5, 0)
         actionButton.AnchorPoint = Vector2.new(0, 0.5)
         actionButton.BackgroundColor3 = Color3.fromRGB(48, 58, 78)
@@ -600,7 +600,7 @@ function Syllinse:Load()
         actionStroke.Transparency = 0.15
 
         local keybindButton = Instance.new("TextButton")
-        keybindButton.Size = UDim2.new(0.5, 0, math.floor(0.65 * uiScale), 0)
+        keybindButton.Size = UDim2.new(0.5, 0, 0.8, 0)
         keybindButton.Position = UDim2.new(0.5, 0, 0.5, 0)
         keybindButton.AnchorPoint = Vector2.new(0, 0.5)
         keybindButton.BackgroundColor3 = Color3.fromRGB(42, 42, 52)
@@ -925,5 +925,4 @@ function Syllinse:Load()
     
     return module
 end
-
 return Syllinse
