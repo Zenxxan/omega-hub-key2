@@ -25,26 +25,24 @@ function Syllinse:Load()
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
     local screenSize = workspace.CurrentCamera.ViewportSize
-    local isMobile = UserInputService.TouchEnabled
     
     local function calculateScale()
-       local baseResolution = Vector2.new(1920, 1080)
-       local currentResolution = screenSize
-       local scaleX = currentResolution.X / baseResolution.X
-       local scaleY = currentResolution.Y / baseResolution.Y
-       local minScale = math.min(scaleX, scaleY)
+        local baseResolution = Vector2.new(1920, 1080)
+        local currentResolution = screenSize
+        local scaleX = currentResolution.X / baseResolution.X
+        local scaleY = currentResolution.Y / baseResolution.Y
+        local minScale = math.min(scaleX, scaleY)
     
-       if currentResolution.X > 3840 then  -- 4K
-            return minScale * 1.1  -- 110% (bigger than normal!)
-       elseif currentResolution.X > 2560 then
-            return minScale * 1.0  -- 100%
-       elseif currentResolution.X > 1920 then
-            return minScale * 0.9  -- 90%
-       else
-            return minScale * 0.85  -- 85%
-       end
+        if currentResolution.X > 3840 then
+            return minScale * 0.95
+        elseif currentResolution.X > 2560 then
+            return minScale * 0.9
+        elseif currentResolution.X > 1920 then
+            return minScale * 0.85
+        else
+            return minScale * 0.8
+        end
     end
-
     
     local uiScale = calculateScale()
     
@@ -333,11 +331,25 @@ function Syllinse:Load()
         end
     end
 
+    local toggleCount = 0
+    local buttonCount = 0
+    
+    local function getLayoutOrder()
+        local totalItems = toggleCount + buttonCount
+        if totalItems % 2 == 0 then
+            return math.floor(totalItems / 2) + 1
+        else
+            return math.ceil(totalItems / 2)
+        end
+    end
+
     local function createToggle(parent, text, callback, defaultKey)
         local buttonContainer = Instance.new("Frame")
         buttonContainer.Size = UDim2.new(1, 0, 1, 0)
         buttonContainer.BackgroundTransparency = 1
         buttonContainer.Parent = parent
+        toggleCount = toggleCount + 1
+        buttonContainer.LayoutOrder = getLayoutOrder()
 
         local containerBackground = Instance.new("Frame")
         containerBackground.Size = UDim2.new(1, 0, 1, 0)
@@ -538,6 +550,8 @@ function Syllinse:Load()
         buttonContainer.Size = UDim2.new(1, 0, 1, 0)
         buttonContainer.BackgroundTransparency = 1
         buttonContainer.Parent = parent
+        buttonCount = buttonCount + 1
+        buttonContainer.LayoutOrder = getLayoutOrder()
 
         local containerBackground = Instance.new("Frame")
         containerBackground.Size = UDim2.new(1, 0, 1, 0)
@@ -895,7 +909,7 @@ function Syllinse:Load()
         if input == toggleDragInput and toggleDragging then
             updateToggle(input)
         end
-    end)
+    end
 
     local function onScreenResize()
         screenSize = workspace.CurrentCamera.ViewportSize
