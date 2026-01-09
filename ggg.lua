@@ -25,6 +25,7 @@ function Syllinse:Load()
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
     local screenSize = workspace.CurrentCamera.ViewportSize
+    local isMobile = UserInputService.TouchEnabled
     
     local function calculateScale()
         local baseResolution = Vector2.new(1920, 1080)
@@ -50,7 +51,7 @@ function Syllinse:Load()
     toggleCircle.Name = "ToggleCircle"
     toggleCircle.Size = UDim2.new(0, toggleSize, 0, toggleSize)
     toggleCircle.Position = UDim2.new(0, 20, 0, 20)
-    toggleCircle.Image = "rbxassetid://96928078987243"
+    toggleCircle.Image = "rbxassetid://10734976145"
     toggleCircle.ImageColor3 = Color3.fromRGB(255, 255, 255)
     toggleCircle.BackgroundTransparency = 1
     toggleCircle.Parent = screenGui
@@ -326,25 +327,11 @@ function Syllinse:Load()
         end
     end
 
-    local toggleCount = 0
-    local buttonCount = 0
-    
-    local function getLayoutOrder()
-        local totalItems = toggleCount + buttonCount
-        if totalItems % 2 == 0 then
-            return math.floor(totalItems / 2) + 1
-        else
-            return math.ceil(totalItems / 2)
-        end
-    end
-
     local function createToggle(parent, text, callback, defaultKey)
         local buttonContainer = Instance.new("Frame")
         buttonContainer.Size = UDim2.new(1, 0, 1, 0)
         buttonContainer.BackgroundTransparency = 1
         buttonContainer.Parent = parent
-        toggleCount = toggleCount + 1
-        buttonContainer.LayoutOrder = getLayoutOrder()
 
         local containerBackground = Instance.new("Frame")
         containerBackground.Size = UDim2.new(1, 0, 1, 0)
@@ -394,7 +381,7 @@ function Syllinse:Load()
         toggleContainer.Parent = contentFrame
 
         local toggleFrame = Instance.new("ImageButton")
-        toggleFrame.Size = UDim2.new(0.5, 0, 0.38, 0)
+        toggleFrame.Size = UDim2.new(0.5, 0, 0.65, 0)
         toggleFrame.Position = UDim2.new(0, 0, 0.5, 0)
         toggleFrame.AnchorPoint = Vector2.new(0, 0.5)
         toggleFrame.BackgroundColor3 = Color3.fromRGB(60, 50, 50)
@@ -405,8 +392,8 @@ function Syllinse:Load()
         toggleFrame.ZIndex = 2
 
         local toggleSwitch = Instance.new("Frame")
-        toggleSwitch.Size = UDim2.new(0.32, 0, 0.78, 0)
-        toggleSwitch.Position = UDim2.new(0.06, 0, 0.5, 0)
+        toggleSwitch.Size = UDim2.new(0.4, 0, 1, 0)
+        toggleSwitch.Position = UDim2.new(0.05, 0, 0.5, 0)
         toggleSwitch.AnchorPoint = Vector2.new(0, 0.5)
         toggleSwitch.BackgroundColor3 = Color3.fromRGB(170, 55, 55)
         toggleSwitch.BackgroundTransparency = 0.05
@@ -467,7 +454,7 @@ function Syllinse:Load()
             buttonStates[toggleId] = state
             if state then
                 TweenService:Create(toggleSwitch, TweenInfo.new(0.07), {
-                    Position = UDim2.new(0.62, 0, 0.5, 0),
+                    Position = UDim2.new(0.55, 0, 0.5, 0),
                     BackgroundColor3 = Color3.fromRGB(55, 230, 130)
                 }):Play()
                 TweenService:Create(toggleFrame, TweenInfo.new(0.07), {
@@ -475,7 +462,7 @@ function Syllinse:Load()
                 }):Play()
             else
                 TweenService:Create(toggleSwitch, TweenInfo.new(0.07), {
-                    Position = UDim2.new(0.06, 0, 0.5, 0),
+                    Position = UDim2.new(0.05, 0, 0.5, 0),
                     BackgroundColor3 = Color3.fromRGB(170, 55, 55)
                 }):Play()
                 TweenService:Create(toggleFrame, TweenInfo.new(0.07), {
@@ -545,8 +532,6 @@ function Syllinse:Load()
         buttonContainer.Size = UDim2.new(1, 0, 1, 0)
         buttonContainer.BackgroundTransparency = 1
         buttonContainer.Parent = parent
-        buttonCount = buttonCount + 1
-        buttonContainer.LayoutOrder = getLayoutOrder()
 
         local containerBackground = Instance.new("Frame")
         containerBackground.Size = UDim2.new(1, 0, 1, 0)
