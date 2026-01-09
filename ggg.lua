@@ -909,7 +909,7 @@ function Syllinse:Load()
         if input == toggleDragInput and toggleDragging then
             updateToggle(input)
         end
-    end
+    end)
 
     local function onScreenResize()
         screenSize = workspace.CurrentCamera.ViewportSize
