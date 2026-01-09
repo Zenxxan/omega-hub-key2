@@ -455,7 +455,7 @@ function Syllinse:Load()
             buttonStates[toggleId] = state
             if state then
                 TweenService:Create(toggleSwitch, TweenInfo.new(0.07), {
-                    Position = UDim2.new(0.62, 0, 0.5, 0)
+                    Position = UDim2.new(0.62, 0, 0.5, 0),
                     BackgroundColor3 = Color3.fromRGB(55, 230, 130)
                 }):Play()
                 TweenService:Create(toggleFrame, TweenInfo.new(0.07), {
@@ -463,7 +463,7 @@ function Syllinse:Load()
                 }):Play()
             else
                 TweenService:Create(toggleSwitch, TweenInfo.new(0.07), {
-                    Position = UDim2.new(0.06, 0, 0.5, 0)
+                    Position = UDim2.new(0.06, 0, 0.5, 0),
                     BackgroundColor3 = Color3.fromRGB(170, 55, 55)
                 }):Play()
                 TweenService:Create(toggleFrame, TweenInfo.new(0.07), {
