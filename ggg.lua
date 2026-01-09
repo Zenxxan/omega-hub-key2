@@ -26,12 +26,12 @@ function Syllinse:Load()
 
     local screenSize = workspace.CurrentCamera.ViewportSize
     local isMobile = UserInputService.TouchEnabled
-    local baseWidth = isMobile and math.min(400, screenSize.X * 0.9) or 380
-    local baseHeight = isMobile and math.min(500, screenSize.Y * 0.8) or 460
+    local baseWidth = isMobile and math.min(420, screenSize.X * 0.88) or 400
+    local baseHeight = isMobile and math.min(520, screenSize.Y * 0.75) or 480
 
     local toggleCircle = Instance.new("ImageButton")
     toggleCircle.Name = "ToggleCircle"
-    toggleCircle.Size = UDim2.new(0, 58, 0, 58)
+    toggleCircle.Size = UDim2.new(0, 60, 0, 60)
     toggleCircle.Position = UDim2.new(0, 25, 0, 25)
     toggleCircle.Image = "rbxassetid://10734976145"
     toggleCircle.ImageColor3 = Color3.fromRGB(255, 255, 255)
@@ -45,8 +45,8 @@ function Syllinse:Load()
 
     local toggleAcrylic = Instance.new("Frame")
     toggleAcrylic.Parent = toggleCircle
-    toggleAcrylic.BackgroundColor3 = Color3.fromRGB(18, 18, 24)
-    toggleAcrylic.BackgroundTransparency = 0.15
+    toggleAcrylic.BackgroundColor3 = Color3.fromRGB(22, 22, 28)
+    toggleAcrylic.BackgroundTransparency = 0.12
     toggleAcrylic.Size = UDim2.new(1, 0, 1, 0)
     toggleAcrylic.BorderSizePixel = 0
     toggleAcrylic.ZIndex = -1
@@ -61,28 +61,28 @@ function Syllinse:Load()
     toggleNoise.Size = UDim2.new(1, 0, 1, 0)
     toggleNoise.Image = "rbxassetid://8992230677"
     toggleNoise.ImageColor3 = Color3.fromRGB(255, 255, 255)
-    toggleNoise.ImageTransparency = 0.88
+    toggleNoise.ImageTransparency = 0.85
     toggleNoise.ScaleType = Enum.ScaleType.Tile
-    toggleNoise.TileSize = UDim2.new(0, 60, 0, 60)
+    toggleNoise.TileSize = UDim2.new(0, 65, 0, 65)
     toggleNoise.ZIndex = -1
 
     local toggleStroke = Instance.new("UIStroke")
     toggleStroke.Parent = toggleCircle
-    toggleStroke.Color = Color3.fromRGB(90, 90, 110)
-    toggleStroke.Thickness = 1.8
-    toggleStroke.Transparency = 0.15
+    toggleStroke.Color = Color3.fromRGB(100, 100, 120)
+    toggleStroke.Thickness = 2
+    toggleStroke.Transparency = 0.1
 
     local toggleInnerStroke = Instance.new("UIStroke")
     toggleInnerStroke.Parent = toggleAcrylic
     toggleInnerStroke.Color = Color3.fromRGB(255, 255, 255)
-    toggleInnerStroke.Thickness = 1.2
-    toggleInnerStroke.Transparency = 0.8
+    toggleInnerStroke.Thickness = 1.3
+    toggleInnerStroke.Transparency = 0.75
 
     local mainFrame = Instance.new("Frame")
     mainFrame.Size = UDim2.new(0, baseWidth, 0, baseHeight)
     mainFrame.Position = UDim2.new(0.5, -baseWidth/2, 0.5, -baseHeight/2)
-    mainFrame.BackgroundColor3 = Color3.fromRGB(14, 14, 18)
-    mainFrame.BackgroundTransparency = 0.05
+    mainFrame.BackgroundColor3 = Color3.fromRGB(16, 16, 22)
+    mainFrame.BackgroundTransparency = 0.03
     mainFrame.BorderSizePixel = 0
     mainFrame.Parent = screenGui
     mainFrame.Active = true
@@ -91,19 +91,19 @@ function Syllinse:Load()
     mainFrame.ClipsDescendants = true
 
     local mainCorner = Instance.new("UICorner")
-    mainCorner.CornerRadius = UDim.new(0, 10)
+    mainCorner.CornerRadius = UDim.new(0, 12)
     mainCorner.Parent = mainFrame
 
     local acrylicLayer = Instance.new("Frame")
     acrylicLayer.Parent = mainFrame
-    acrylicLayer.BackgroundColor3 = Color3.fromRGB(20, 20, 26)
-    acrylicLayer.BackgroundTransparency = 0.15
+    acrylicLayer.BackgroundColor3 = Color3.fromRGB(24, 24, 30)
+    acrylicLayer.BackgroundTransparency = 0.1
     acrylicLayer.Size = UDim2.new(1, 0, 1, 0)
     acrylicLayer.BorderSizePixel = 0
     acrylicLayer.ZIndex = 0
 
     local acrylicCorner = Instance.new("UICorner")
-    acrylicCorner.CornerRadius = UDim.new(0, 10)
+    acrylicCorner.CornerRadius = UDim.new(0, 12)
     acrylicCorner.Parent = acrylicLayer
 
     local noiseOverlay = Instance.new("ImageLabel")
@@ -112,50 +112,50 @@ function Syllinse:Load()
     noiseOverlay.Size = UDim2.new(1, 0, 1, 0)
     noiseOverlay.Image = "rbxassetid://8992230677"
     noiseOverlay.ImageColor3 = Color3.fromRGB(255, 255, 255)
-    noiseOverlay.ImageTransparency = 0.88
+    noiseOverlay.ImageTransparency = 0.85
     noiseOverlay.ScaleType = Enum.ScaleType.Tile
-    noiseOverlay.TileSize = UDim2.new(0, 140, 0, 140)
+    noiseOverlay.TileSize = UDim2.new(0, 150, 0, 150)
     noiseOverlay.ZIndex = 1
 
     local stroke = Instance.new("UIStroke")
     stroke.Parent = mainFrame
-    stroke.Color = Color3.fromRGB(90, 90, 110)
-    stroke.Thickness = 1.8
-    stroke.Transparency = 0.1
+    stroke.Color = Color3.fromRGB(100, 100, 120)
+    stroke.Thickness = 2
+    stroke.Transparency = 0.05
 
     local innerStroke = Instance.new("UIStroke")
     innerStroke.Parent = acrylicLayer
     innerStroke.Color = Color3.fromRGB(255, 255, 255)
-    innerStroke.Thickness = 1.2
-    innerStroke.Transparency = 0.8
+    innerStroke.Thickness = 1.3
+    innerStroke.Transparency = 0.75
 
     local header = Instance.new("Frame")
     header.Parent = mainFrame
     header.BackgroundTransparency = 1
-    header.Size = UDim2.new(1, 0, 0, isMobile and 60 or 56)
+    header.Size = UDim2.new(1, 0, 0, isMobile and 64 or 60)
     header.ZIndex = 10
 
     local headerAccent = Instance.new("Frame")
     headerAccent.Parent = header
-    headerAccent.BackgroundColor3 = Color3.fromRGB(70, 190, 255)
-    headerAccent.BackgroundTransparency = 0.5
-    headerAccent.Position = UDim2.new(0, 20, 1, -2)
-    headerAccent.Size = UDim2.new(1, -40, 0, 2)
+    headerAccent.BackgroundColor3 = Color3.fromRGB(80, 200, 255)
+    headerAccent.BackgroundTransparency = 0.4
+    headerAccent.Position = UDim2.new(0, 22, 1, -2)
+    headerAccent.Size = UDim2.new(1, -44, 0, 2)
     headerAccent.BorderSizePixel = 0
     headerAccent.ZIndex = 10
 
     local titleContainer = Instance.new("Frame")
     titleContainer.Parent = header
     titleContainer.BackgroundTransparency = 1
-    titleContainer.Position = UDim2.new(0, 20, 0, 0)
-    titleContainer.Size = UDim2.new(1, -80, 1, 0)
+    titleContainer.Position = UDim2.new(0, 22, 0, 0)
+    titleContainer.Size = UDim2.new(1, -84, 1, 0)
     titleContainer.ZIndex = 10
 
     local title = Instance.new("TextLabel")
     title.Parent = titleContainer
     title.Text = "SYLLINSE"
     title.Font = Enum.Font.GothamBlack
-    title.TextSize = isMobile and 24 or 22
+    title.TextSize = isMobile and 26 or 24
     title.TextColor3 = Color3.fromRGB(255, 255, 255)
     title.BackgroundTransparency = 1
     title.Size = UDim2.new(1, 0, 1, 0)
@@ -171,22 +171,22 @@ function Syllinse:Load()
     titleGradient.Parent = title
 
     local controls = Instance.new("Frame")
-    controls.Size = UDim2.new(0, 50, 1, 0)
-    controls.Position = UDim2.new(1, -54, 0, 0)
+    controls.Size = UDim2.new(0, 54, 1, 0)
+    controls.Position = UDim2.new(1, -58, 0, 0)
     controls.BackgroundTransparency = 1
     controls.Parent = header
     controls.ZIndex = 10
 
     local minimizeBtn = Instance.new("TextButton")
-    minimizeBtn.Size = UDim2.new(0, isMobile and 28 or 24, 0, isMobile and 28 or 24)
-    minimizeBtn.Position = UDim2.new(0, 2, 0, isMobile and 14 or 12)
-    minimizeBtn.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
-    minimizeBtn.BackgroundTransparency = 0.2
+    minimizeBtn.Size = UDim2.new(0, isMobile and 30 or 26, 0, isMobile and 30 or 26)
+    minimizeBtn.Position = UDim2.new(0, 2, 0, isMobile and 15 or 13)
+    minimizeBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
+    minimizeBtn.BackgroundTransparency = 0.15
     minimizeBtn.BorderSizePixel = 0
     minimizeBtn.Text = "−"
-    minimizeBtn.TextColor3 = Color3.fromRGB(225, 225, 245)
+    minimizeBtn.TextColor3 = Color3.fromRGB(230, 230, 250)
     minimizeBtn.Font = Enum.Font.GothamMedium
-    minimizeBtn.TextSize = isMobile and 22 or 20
+    minimizeBtn.TextSize = isMobile and 24 or 22
     minimizeBtn.ZIndex = 10
     minimizeBtn.Parent = controls
 
@@ -196,20 +196,20 @@ function Syllinse:Load()
 
     local minimizeBtnStroke = Instance.new("UIStroke")
     minimizeBtnStroke.Parent = minimizeBtn
-    minimizeBtnStroke.Color = Color3.fromRGB(100, 100, 120)
-    minimizeBtnStroke.Thickness = 1.2
-    minimizeBtnStroke.Transparency = 0.15
+    minimizeBtnStroke.Color = Color3.fromRGB(110, 110, 130)
+    minimizeBtnStroke.Thickness = 1.3
+    minimizeBtnStroke.Transparency = 0.1
 
     local closeBtn = Instance.new("TextButton")
-    closeBtn.Size = UDim2.new(0, isMobile and 28 or 24, 0, isMobile and 28 or 24)
-    closeBtn.Position = UDim2.new(0, isMobile and 30 or 26, 0, isMobile and 14 or 12)
-    closeBtn.BackgroundColor3 = Color3.fromRGB(45, 35, 40)
-    closeBtn.BackgroundTransparency = 0.2
+    closeBtn.Size = UDim2.new(0, isMobile and 30 or 26, 0, isMobile and 30 or 26)
+    closeBtn.Position = UDim2.new(0, isMobile and 32 or 28, 0, isMobile and 15 or 13)
+    closeBtn.BackgroundColor3 = Color3.fromRGB(50, 40, 45)
+    closeBtn.BackgroundTransparency = 0.15
     closeBtn.BorderSizePixel = 0
     closeBtn.Text = "×"
-    closeBtn.TextColor3 = Color3.fromRGB(245, 185, 185)
+    closeBtn.TextColor3 = Color3.fromRGB(250, 190, 190)
     closeBtn.Font = Enum.Font.GothamMedium
-    closeBtn.TextSize = isMobile and 22 or 20
+    closeBtn.TextSize = isMobile and 24 or 22
     closeBtn.ZIndex = 10
     closeBtn.Parent = controls
 
@@ -219,21 +219,21 @@ function Syllinse:Load()
 
     local closeBtnStroke = Instance.new("UIStroke")
     closeBtnStroke.Parent = closeBtn
-    closeBtnStroke.Color = Color3.fromRGB(140, 95, 105)
-    closeBtnStroke.Thickness = 1.2
-    closeBtnStroke.Transparency = 0.15
+    closeBtnStroke.Color = Color3.fromRGB(150, 100, 110)
+    closeBtnStroke.Thickness = 1.3
+    closeBtnStroke.Transparency = 0.1
 
     local buttonStates = {}
 
     local contentContainer = Instance.new("ScrollingFrame")
     contentContainer.Parent = mainFrame
     contentContainer.BackgroundTransparency = 1
-    contentContainer.Size = UDim2.new(1, -20, 1, -(isMobile and 84 or 80))
-    contentContainer.Position = UDim2.new(0, 10, 0, isMobile and 72 or 68)
+    contentContainer.Size = UDim2.new(1, -24, 1, -(isMobile and 88 or 84))
+    contentContainer.Position = UDim2.new(0, 12, 0, isMobile and 76 or 72)
     contentContainer.ZIndex = 10
-    contentContainer.ScrollBarThickness = isMobile and 6 or 4
-    contentContainer.ScrollBarImageColor3 = Color3.fromRGB(100, 110, 140)
-    contentContainer.ScrollBarImageTransparency = 0.5
+    contentContainer.ScrollBarThickness = isMobile and 7 or 5
+    contentContainer.ScrollBarImageColor3 = Color3.fromRGB(110, 120, 150)
+    contentContainer.ScrollBarImageTransparency = 0.4
     contentContainer.CanvasSize = UDim2.new(0, 0, 0, 0)
     contentContainer.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
@@ -241,8 +241,8 @@ function Syllinse:Load()
     contentLayout.Parent = contentContainer
     contentLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     contentLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    contentLayout.CellPadding = UDim2.new(0, 8, 0, 8)
-    contentLayout.CellSize = UDim2.new(0.5, -4, 0, isMobile and 52 or 48)
+    contentLayout.CellPadding = UDim2.new(0, 10, 0, 10)
+    contentLayout.CellSize = UDim2.new(0.5, -5, 0, isMobile and 54 or 50)
 
     local allButtonFrames = {}
 
@@ -302,16 +302,16 @@ function Syllinse:Load()
                     if state then
                         keybindButtons[id].toggleSwitch.Position = UDim2.new(0.55, 0, 0.5, 0)
                         keybindButtons[id].toggleSwitch.AnchorPoint = Vector2.new(0, 0.5)
-                        keybindButtons[id].toggleSwitch.BackgroundColor3 = Color3.fromRGB(45, 210, 110)
-                        keybindButtons[id].toggleFrame.BackgroundColor3 = Color3.fromRGB(30, 60, 50)
+                        keybindButtons[id].toggleSwitch.BackgroundColor3 = Color3.fromRGB(50, 220, 120)
+                        keybindButtons[id].toggleFrame.BackgroundColor3 = Color3.fromRGB(35, 65, 55)
                         if keybindButtons[id].callback then
                             keybindButtons[id].callback(state)
                         end
                     else
                         keybindButtons[id].toggleSwitch.Position = UDim2.new(0.05, 0, 0.5, 0)
                         keybindButtons[id].toggleSwitch.AnchorPoint = Vector2.new(0, 0.5)
-                        keybindButtons[id].toggleSwitch.BackgroundColor3 = Color3.fromRGB(150, 45, 45)
-                        keybindButtons[id].toggleFrame.BackgroundColor3 = Color3.fromRGB(50, 40, 40)
+                        keybindButtons[id].toggleSwitch.BackgroundColor3 = Color3.fromRGB(160, 50, 50)
+                        keybindButtons[id].toggleFrame.BackgroundColor3 = Color3.fromRGB(55, 45, 45)
                         if keybindButtons[id].callback then
                             keybindButtons[id].callback(false)
                         end
@@ -339,21 +339,21 @@ function Syllinse:Load()
 
         local containerBackground = Instance.new("Frame")
         containerBackground.Size = UDim2.new(1, 0, 1, 0)
-        containerBackground.BackgroundColor3 = Color3.fromRGB(25, 25, 32)
-        containerBackground.BackgroundTransparency = 0.75
+        containerBackground.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
+        containerBackground.BackgroundTransparency = 0.7
         containerBackground.BorderSizePixel = 0
         containerBackground.Parent = buttonContainer
         containerBackground.ZIndex = 1
 
         local backgroundCorner = Instance.new("UICorner")
-        backgroundCorner.CornerRadius = UDim.new(0, 8)
+        backgroundCorner.CornerRadius = UDim.new(0, 10)
         backgroundCorner.Parent = containerBackground
 
         local backgroundStroke = Instance.new("UIStroke")
         backgroundStroke.Parent = containerBackground
-        backgroundStroke.Color = Color3.fromRGB(90, 100, 130)
-        backgroundStroke.Thickness = 1.2
-        backgroundStroke.Transparency = 0.4
+        backgroundStroke.Color = Color3.fromRGB(100, 110, 140)
+        backgroundStroke.Thickness = 1.3
+        backgroundStroke.Transparency = 0.35
 
         local contentFrame = Instance.new("Frame")
         contentFrame.Size = UDim2.new(1, -20, 1, 0)
@@ -370,10 +370,10 @@ function Syllinse:Load()
         local textLabel = Instance.new("TextLabel")
         textLabel.Size = UDim2.new(1, 0, 1, 0)
         textLabel.BackgroundTransparency = 1
-        textLabel.TextColor3 = Color3.fromRGB(245, 245, 255)
+        textLabel.TextColor3 = Color3.fromRGB(250, 250, 255)
         textLabel.Text = text
         textLabel.Font = Enum.Font.GothamSemibold
-        textLabel.TextSize = isMobile and 14 or 13
+        textLabel.TextSize = isMobile and 15 or 14
         textLabel.TextXAlignment = Enum.TextXAlignment.Left
         textLabel.Parent = labelContainer
         textLabel.ZIndex = 2
@@ -385,11 +385,11 @@ function Syllinse:Load()
         toggleContainer.Parent = contentFrame
 
         local toggleFrame = Instance.new("ImageButton")
-        toggleFrame.Size = UDim2.new(0.45, 0, 0.6, 0)
+        toggleFrame.Size = UDim2.new(0.48, 0, 0.6, 0)
         toggleFrame.Position = UDim2.new(0, 0, 0.5, 0)
         toggleFrame.AnchorPoint = Vector2.new(0, 0.5)
-        toggleFrame.BackgroundColor3 = Color3.fromRGB(50, 40, 40)
-        toggleFrame.BackgroundTransparency = 0.1
+        toggleFrame.BackgroundColor3 = Color3.fromRGB(55, 45, 45)
+        toggleFrame.BackgroundTransparency = 0.08
         toggleFrame.BorderSizePixel = 0
         toggleFrame.ImageTransparency = 1
         toggleFrame.Parent = toggleContainer
@@ -399,8 +399,8 @@ function Syllinse:Load()
         toggleSwitch.Size = UDim2.new(0.35, 0, 0.8, 0)
         toggleSwitch.Position = UDim2.new(0.05, 0, 0.5, 0)
         toggleSwitch.AnchorPoint = Vector2.new(0, 0.5)
-        toggleSwitch.BackgroundColor3 = Color3.fromRGB(150, 45, 45)
-        toggleSwitch.BackgroundTransparency = 0.1
+        toggleSwitch.BackgroundColor3 = Color3.fromRGB(160, 50, 50)
+        toggleSwitch.BackgroundTransparency = 0.08
         toggleSwitch.BorderSizePixel = 0
         toggleSwitch.Parent = toggleFrame
         toggleSwitch.ZIndex = 3
@@ -414,28 +414,28 @@ function Syllinse:Load()
         switchCorner.Parent = toggleSwitch
 
         local keybindButton = Instance.new("TextButton")
-        keybindButton.Size = UDim2.new(0.5, 0, 0.6, 0)
-        keybindButton.Position = UDim2.new(0.5, 0, 0.5, 0)
-        keybindButton.AnchorPoint = Vector2.new(0.5, 0.5)
-        keybindButton.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
-        keybindButton.BackgroundTransparency = 0.15
+        keybindButton.Size = UDim2.new(0.48, 0, 0.6, 0)
+        keybindButton.Position = UDim2.new(0.52, 0, 0.5, 0)
+        keybindButton.AnchorPoint = Vector2.new(0, 0.5)
+        keybindButton.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
+        keybindButton.BackgroundTransparency = 0.12
         keybindButton.BorderSizePixel = 0
-        keybindButton.TextColor3 = Color3.fromRGB(215, 225, 245)
+        keybindButton.TextColor3 = Color3.fromRGB(220, 230, 250)
         keybindButton.Text = defaultKey and tostring(defaultKey) or "NONE"
         keybindButton.Font = Enum.Font.GothamMedium
-        keybindButton.TextSize = isMobile and 11 or 10
+        keybindButton.TextSize = isMobile and 12 or 11
         keybindButton.Parent = toggleContainer
         keybindButton.ZIndex = 2
 
         local keybindCorner = Instance.new("UICorner")
-        keybindCorner.CornerRadius = UDim.new(0, 5)
+        keybindCorner.CornerRadius = UDim.new(0, 6)
         keybindCorner.Parent = keybindButton
 
         local keybindStroke = Instance.new("UIStroke")
         keybindStroke.Parent = keybindButton
-        keybindStroke.Color = Color3.fromRGB(100, 110, 130)
-        keybindStroke.Thickness = 1
-        keybindStroke.Transparency = 0.25
+        keybindStroke.Color = Color3.fromRGB(110, 120, 140)
+        keybindStroke.Thickness = 1.1
+        keybindStroke.Transparency = 0.2
 
         local toggleId = text
         local savedKey = loadedSettings.keybinds[toggleId]
@@ -457,20 +457,20 @@ function Syllinse:Load()
         local function updateToggle(state)
             buttonStates[toggleId] = state
             if state then
-                TweenService:Create(toggleSwitch, TweenInfo.new(0.1), {
+                TweenService:Create(toggleSwitch, TweenInfo.new(0.08), {
                     Position = UDim2.new(0.55, 0, 0.5, 0),
-                    BackgroundColor3 = Color3.fromRGB(45, 210, 110)
+                    BackgroundColor3 = Color3.fromRGB(50, 220, 120)
                 }):Play()
-                TweenService:Create(toggleFrame, TweenInfo.new(0.1), {
-                    BackgroundColor3 = Color3.fromRGB(30, 60, 50)
+                TweenService:Create(toggleFrame, TweenInfo.new(0.08), {
+                    BackgroundColor3 = Color3.fromRGB(35, 65, 55)
                 }):Play()
             else
-                TweenService:Create(toggleSwitch, TweenInfo.new(0.1), {
+                TweenService:Create(toggleSwitch, TweenInfo.new(0.08), {
                     Position = UDim2.new(0.05, 0, 0.5, 0),
-                    BackgroundColor3 = Color3.fromRGB(150, 45, 45)
+                    BackgroundColor3 = Color3.fromRGB(160, 50, 50)
                 }):Play()
-                TweenService:Create(toggleFrame, TweenInfo.new(0.1), {
-                    BackgroundColor3 = Color3.fromRGB(50, 40, 40)
+                TweenService:Create(toggleFrame, TweenInfo.new(0.08), {
+                    BackgroundColor3 = Color3.fromRGB(55, 45, 45)
                 }):Play()
             end
             saveSettings()
@@ -506,7 +506,7 @@ function Syllinse:Load()
                     local key = input.KeyCode.Name
                     keybindButtons[toggleId].currentKey = key
                     keybindButton.Text = key
-                    keybindButton.TextColor3 = Color3.fromRGB(215, 225, 245)
+                    keybindButton.TextColor3 = Color3.fromRGB(220, 230, 250)
                     updateKeybind(toggleId, key)
                     connection:Disconnect()
                 end
@@ -514,16 +514,16 @@ function Syllinse:Load()
         end)
 
         buttonContainer.MouseEnter:Connect(function()
-            TweenService:Create(backgroundStroke, TweenInfo.new(0.1), {
-                Color = Color3.fromRGB(110, 170, 240),
-                Transparency = 0.15
+            TweenService:Create(backgroundStroke, TweenInfo.new(0.08), {
+                Color = Color3.fromRGB(120, 180, 250),
+                Transparency = 0.12
             }):Play()
         end)
 
         buttonContainer.MouseLeave:Connect(function()
-            TweenService:Create(backgroundStroke, TweenInfo.new(0.1), {
-                Color = Color3.fromRGB(90, 100, 130),
-                Transparency = 0.4
+            TweenService:Create(backgroundStroke, TweenInfo.new(0.08), {
+                Color = Color3.fromRGB(100, 110, 140),
+                Transparency = 0.35
             }):Play()
         end)
 
@@ -539,21 +539,21 @@ function Syllinse:Load()
 
         local containerBackground = Instance.new("Frame")
         containerBackground.Size = UDim2.new(1, 0, 1, 0)
-        containerBackground.BackgroundColor3 = Color3.fromRGB(25, 25, 32)
-        containerBackground.BackgroundTransparency = 0.75
+        containerBackground.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
+        containerBackground.BackgroundTransparency = 0.7
         containerBackground.BorderSizePixel = 0
         containerBackground.Parent = buttonContainer
         containerBackground.ZIndex = 1
 
         local backgroundCorner = Instance.new("UICorner")
-        backgroundCorner.CornerRadius = UDim.new(0, 8)
+        backgroundCorner.CornerRadius = UDim.new(0, 10)
         backgroundCorner.Parent = containerBackground
 
         local backgroundStroke = Instance.new("UIStroke")
         backgroundStroke.Parent = containerBackground
-        backgroundStroke.Color = Color3.fromRGB(90, 100, 130)
-        backgroundStroke.Thickness = 1.2
-        backgroundStroke.Transparency = 0.4
+        backgroundStroke.Color = Color3.fromRGB(100, 110, 140)
+        backgroundStroke.Thickness = 1.3
+        backgroundStroke.Transparency = 0.35
 
         local contentFrame = Instance.new("Frame")
         contentFrame.Size = UDim2.new(1, -20, 1, 0)
@@ -570,10 +570,10 @@ function Syllinse:Load()
         local textLabel = Instance.new("TextLabel")
         textLabel.Size = UDim2.new(1, 0, 1, 0)
         textLabel.BackgroundTransparency = 1
-        textLabel.TextColor3 = Color3.fromRGB(245, 245, 255)
+        textLabel.TextColor3 = Color3.fromRGB(250, 250, 255)
         textLabel.Text = text
         textLabel.Font = Enum.Font.GothamSemibold
-        textLabel.TextSize = isMobile and 14 or 13
+        textLabel.TextSize = isMobile and 15 or 14
         textLabel.TextXAlignment = Enum.TextXAlignment.Left
         textLabel.Parent = labelContainer
         textLabel.ZIndex = 2
@@ -585,13 +585,13 @@ function Syllinse:Load()
         buttonContainerRight.Parent = contentFrame
 
         local actionButton = Instance.new("TextButton")
-        actionButton.Size = UDim2.new(0.45, 0, 0.6, 0)
+        actionButton.Size = UDim2.new(0.48, 0, 0.6, 0)
         actionButton.Position = UDim2.new(0, 0, 0.5, 0)
         actionButton.AnchorPoint = Vector2.new(0, 0.5)
-        actionButton.BackgroundColor3 = Color3.fromRGB(40, 50, 70)
-        actionButton.BackgroundTransparency = 0.1
+        actionButton.BackgroundColor3 = Color3.fromRGB(45, 55, 75)
+        actionButton.BackgroundTransparency = 0.08
         actionButton.BorderSizePixel = 0
-        actionButton.TextColor3 = Color3.fromRGB(225, 235, 255)
+        actionButton.TextColor3 = Color3.fromRGB(230, 240, 255)
         actionButton.Text = "RUN"
         actionButton.Font = Enum.Font.GothamMedium
         actionButton.TextSize = isMobile and 12 or 11
@@ -599,38 +599,38 @@ function Syllinse:Load()
         actionButton.ZIndex = 2
 
         local actionCorner = Instance.new("UICorner")
-        actionCorner.CornerRadius = UDim.new(0, 5)
+        actionCorner.CornerRadius = UDim.new(0, 6)
         actionCorner.Parent = actionButton
 
         local actionStroke = Instance.new("UIStroke")
         actionStroke.Parent = actionButton
-        actionStroke.Color = Color3.fromRGB(100, 140, 200)
-        actionStroke.Thickness = 1
-        actionStroke.Transparency = 0.25
+        actionStroke.Color = Color3.fromRGB(110, 150, 210)
+        actionStroke.Thickness = 1.1
+        actionStroke.Transparency = 0.2
 
         local keybindButton = Instance.new("TextButton")
-        keybindButton.Size = UDim2.new(0.5, 0, 0.6, 0)
-        keybindButton.Position = UDim2.new(0.5, 0, 0.5, 0)
-        keybindButton.AnchorPoint = Vector2.new(0.5, 0.5)
-        keybindButton.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
-        keybindButton.BackgroundTransparency = 0.15
+        keybindButton.Size = UDim2.new(0.48, 0, 0.6, 0)
+        keybindButton.Position = UDim2.new(0.52, 0, 0.5, 0)
+        keybindButton.AnchorPoint = Vector2.new(0, 0.5)
+        keybindButton.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
+        keybindButton.BackgroundTransparency = 0.12
         keybindButton.BorderSizePixel = 0
-        keybindButton.TextColor3 = Color3.fromRGB(215, 225, 245)
+        keybindButton.TextColor3 = Color3.fromRGB(220, 230, 250)
         keybindButton.Text = defaultKey and tostring(defaultKey) or "NONE"
         keybindButton.Font = Enum.Font.GothamMedium
-        keybindButton.TextSize = isMobile and 11 or 10
+        keybindButton.TextSize = isMobile and 12 or 11
         keybindButton.Parent = buttonContainerRight
         keybindButton.ZIndex = 2
 
         local keybindCorner = Instance.new("UICorner")
-        keybindCorner.CornerRadius = UDim.new(0, 5)
+        keybindCorner.CornerRadius = UDim.new(0, 6)
         keybindCorner.Parent = keybindButton
 
         local keybindStroke = Instance.new("UIStroke")
         keybindStroke.Parent = keybindButton
-        keybindStroke.Color = Color3.fromRGB(100, 110, 130)
-        keybindStroke.Thickness = 1
-        keybindStroke.Transparency = 0.25
+        keybindStroke.Color = Color3.fromRGB(110, 120, 140)
+        keybindStroke.Thickness = 1.1
+        keybindStroke.Transparency = 0.2
 
         local buttonId = text
         local savedKey = loadedSettings.keybinds[buttonId]
@@ -651,34 +651,34 @@ function Syllinse:Load()
         end)
 
         actionButton.MouseEnter:Connect(function()
-            TweenService:Create(actionButton, TweenInfo.new(0.1), {
-                BackgroundColor3 = Color3.fromRGB(50, 70, 100)
+            TweenService:Create(actionButton, TweenInfo.new(0.08), {
+                BackgroundColor3 = Color3.fromRGB(55, 75, 110)
             }):Play()
-            TweenService:Create(actionStroke, TweenInfo.new(0.1), {
-                Color = Color3.fromRGB(120, 200, 255)
+            TweenService:Create(actionStroke, TweenInfo.new(0.08), {
+                Color = Color3.fromRGB(130, 210, 255)
             }):Play()
         end)
 
         actionButton.MouseLeave:Connect(function()
-            TweenService:Create(actionButton, TweenInfo.new(0.1), {
-                BackgroundColor3 = Color3.fromRGB(40, 50, 70)
+            TweenService:Create(actionButton, TweenInfo.new(0.08), {
+                BackgroundColor3 = Color3.fromRGB(45, 55, 75)
             }):Play()
-            TweenService:Create(actionStroke, TweenInfo.new(0.1), {
-                Color = Color3.fromRGB(100, 140, 200)
+            TweenService:Create(actionStroke, TweenInfo.new(0.08), {
+                Color = Color3.fromRGB(110, 150, 210)
             }):Play()
         end)
 
         buttonContainer.MouseEnter:Connect(function()
-            TweenService:Create(backgroundStroke, TweenInfo.new(0.1), {
-                Color = Color3.fromRGB(110, 170, 240),
-                Transparency = 0.15
+            TweenService:Create(backgroundStroke, TweenInfo.new(0.08), {
+                Color = Color3.fromRGB(120, 180, 250),
+                Transparency = 0.12
             }):Play()
         end)
 
         buttonContainer.MouseLeave:Connect(function()
-            TweenService:Create(backgroundStroke, TweenInfo.new(0.1), {
-                Color = Color3.fromRGB(90, 100, 130),
-                Transparency = 0.4
+            TweenService:Create(backgroundStroke, TweenInfo.new(0.08), {
+                Color = Color3.fromRGB(100, 110, 140),
+                Transparency = 0.35
             }):Play()
         end)
 
@@ -698,7 +698,7 @@ function Syllinse:Load()
                     local key = tostring(input.KeyCode.Name)
                     updateKeybind(buttonId, key)
                     listening = false
-                    keybindButton.TextColor3 = Color3.fromRGB(215, 225, 245)
+                    keybindButton.TextColor3 = Color3.fromRGB(220, 230, 250)
                     connection:Disconnect()
                 end
             end)
@@ -727,7 +727,7 @@ function Syllinse:Load()
 
     local isMinimized = false
     local originalSize = mainFrame.Size
-    local minimizedSize = UDim2.new(0, baseWidth, 0, isMobile and 60 or 56)
+    local minimizedSize = UDim2.new(0, baseWidth, 0, isMobile and 64 or 60)
 
     local function toggleMinimize()
         isMinimized = not isMinimized
@@ -740,7 +740,7 @@ function Syllinse:Load()
             acrylicLayer.Visible = false
             noiseOverlay.Visible = false
 
-            TweenService:Create(mainFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            TweenService:Create(mainFrame, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
                 Size = minimizedSize
             }):Play()
             minimizeBtn.Text = "+"
@@ -753,7 +753,7 @@ function Syllinse:Load()
             acrylicLayer.Visible = true
             noiseOverlay.Visible = true
 
-            TweenService:Create(mainFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            TweenService:Create(mainFrame, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
                 Size = originalSize
             }):Play()
             minimizeBtn.Text = "−"
@@ -764,31 +764,31 @@ function Syllinse:Load()
 
     local function setupControlButton(button, hoverColor)
         button.MouseEnter:Connect(function()
-            TweenService:Create(button, TweenInfo.new(0.1), {
+            TweenService:Create(button, TweenInfo.new(0.08), {
                 BackgroundColor3 = hoverColor,
-                BackgroundTransparency = 0.05
+                BackgroundTransparency = 0.03
             }):Play()
         end)
 
         button.MouseLeave:Connect(function()
-            TweenService:Create(button, TweenInfo.new(0.1), {
-                BackgroundColor3 = button == minimizeBtn and Color3.fromRGB(35, 35, 45) or Color3.fromRGB(45, 35, 40),
-                BackgroundTransparency = 0.2
+            TweenService:Create(button, TweenInfo.new(0.08), {
+                BackgroundColor3 = button == minimizeBtn and Color3.fromRGB(40, 40, 50) or Color3.fromRGB(50, 40, 45),
+                BackgroundTransparency = 0.15
             }):Play()
         end)
     end
 
-    setupControlButton(minimizeBtn, Color3.fromRGB(60, 80, 110))
-    setupControlButton(closeBtn, Color3.fromRGB(190, 70, 70))
+    setupControlButton(minimizeBtn, Color3.fromRGB(65, 85, 120))
+    setupControlButton(closeBtn, Color3.fromRGB(200, 75, 75))
 
     closeBtn.MouseButton1Click:Connect(function()
-        TweenService:Create(mainFrame, TweenInfo.new(0.2), {
+        TweenService:Create(mainFrame, TweenInfo.new(0.18), {
             BackgroundTransparency = 1
         }):Play()
-        TweenService:Create(acrylicLayer, TweenInfo.new(0.2), {
+        TweenService:Create(acrylicLayer, TweenInfo.new(0.18), {
             BackgroundTransparency = 1
         }):Play()
-        wait(0.2)
+        wait(0.18)
         screenGui:Destroy()
     end)
 
@@ -802,35 +802,35 @@ function Syllinse:Load()
             mainFrame.Visible = true
             mainFrame.Position = lastPosition
 
-            TweenService:Create(mainFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            TweenService:Create(mainFrame, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
                 Size = originalSize,
-                BackgroundTransparency = 0.05
+                BackgroundTransparency = 0.03
             }):Play()
 
-            TweenService:Create(acrylicLayer, TweenInfo.new(0.2), {
-                BackgroundTransparency = 0.15
+            TweenService:Create(acrylicLayer, TweenInfo.new(0.18), {
+                BackgroundTransparency = 0.1
             }):Play()
 
-            TweenService:Create(toggleCircle, TweenInfo.new(0.2), {
-                ImageColor3 = Color3.fromRGB(70, 190, 255)
+            TweenService:Create(toggleCircle, TweenInfo.new(0.18), {
+                ImageColor3 = Color3.fromRGB(80, 200, 255)
             }):Play()
         else
             lastPosition = mainFrame.Position
 
-            TweenService:Create(mainFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            TweenService:Create(mainFrame, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
                 Size = UDim2.new(0, 0, 0, 0),
                 BackgroundTransparency = 1
             }):Play()
 
-            TweenService:Create(acrylicLayer, TweenInfo.new(0.2), {
+            TweenService:Create(acrylicLayer, TweenInfo.new(0.18), {
                 BackgroundTransparency = 1
             }):Play()
 
-            TweenService:Create(toggleCircle, TweenInfo.new(0.2), {
+            TweenService:Create(toggleCircle, TweenInfo.new(0.18), {
                 ImageColor3 = Color3.fromRGB(255, 255, 255)
             }):Play()
 
-            wait(0.2)
+            wait(0.18)
             mainFrame.Visible = false
         end
     end
@@ -849,14 +849,14 @@ function Syllinse:Load()
     end)
 
     toggleCircle.MouseEnter:Connect(function()
-        TweenService:Create(toggleCircle, TweenInfo.new(0.1), {
-            Size = UDim2.new(0, 62, 0, 62)
+        TweenService:Create(toggleCircle, TweenInfo.new(0.08), {
+            Size = UDim2.new(0, 64, 0, 64)
         }):Play()
     end)
 
     toggleCircle.MouseLeave:Connect(function()
-        TweenService:Create(toggleCircle, TweenInfo.new(0.1), {
-            Size = UDim2.new(0, 58, 0, 58)
+        TweenService:Create(toggleCircle, TweenInfo.new(0.08), {
+            Size = UDim2.new(0, 60, 0, 60)
         }):Play()
     end)
 
@@ -903,15 +903,15 @@ function Syllinse:Load()
         screenSize = workspace.CurrentCamera.ViewportSize
         
         if isMobile then
-            baseWidth = math.min(400, screenSize.X * 0.9)
-            baseHeight = math.min(500, screenSize.Y * 0.8)
+            baseWidth = math.min(420, screenSize.X * 0.88)
+            baseHeight = math.min(520, screenSize.Y * 0.75)
         else
-            baseWidth = 380
-            baseHeight = 460
+            baseWidth = 400
+            baseHeight = 480
         end
         
         originalSize = UDim2.new(0, baseWidth, 0, baseHeight)
-        minimizedSize = UDim2.new(0, baseWidth, 0, isMobile and 60 or 56)
+        minimizedSize = UDim2.new(0, baseWidth, 0, isMobile and 64 or 60)
         
         if not isMinimized then
             mainFrame.Size = originalSize
