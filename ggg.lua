@@ -1052,4 +1052,5 @@ function Syllinse:Load()
 
     return module
 end
+
 return Syllinse
