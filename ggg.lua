@@ -151,7 +151,7 @@ function Syllinse:Load()
 
     local mainFrame = Instance.new("Frame")
     mainFrame.Size = UDim2.new(0, 320, 0, 280)
-    mainFrame.Position = UDim2.new(0.9, -160, 0, 300)
+    mainFrame.Position = UDim2.new(0.9, -160, 0, 340)
     mainFrame.BackgroundColor3 = Color3.fromRGB(8, 8, 12)
     mainFrame.BackgroundTransparency = 0.15
     mainFrame.BorderSizePixel = 0
