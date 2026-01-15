@@ -1,7 +1,3 @@
-just nvm that we'll go back to this.
-
-however u need to add Auto rescale to this.
-
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
