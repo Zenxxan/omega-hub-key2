@@ -33,7 +33,7 @@ function Syllinse:Load()
     local uiScale = calculateScale()
 
     local baseWidth = math.floor(380 * uiScale)
-    local baseHeight = math.floor(450 * uiScale)
+    local baseHeight = math.floor(480 * uiScale)
     local toggleSize = math.floor(50 * uiScale)
 
     local screenGui = Instance.new("ScreenGui")
@@ -151,7 +151,7 @@ function Syllinse:Load()
 
     local mainFrame = Instance.new("Frame")
     mainFrame.Size = UDim2.new(0, 320, 0, 280)
-    mainFrame.Position = UDim2.new(0.9, -160, 0, 340)
+    mainFrame.Position = UDim2.new(0.9, -160, 0, 450)
     mainFrame.BackgroundColor3 = Color3.fromRGB(8, 8, 12)
     mainFrame.BackgroundTransparency = 0.15
     mainFrame.BorderSizePixel = 0
@@ -1186,7 +1186,7 @@ function Syllinse:Load()
                 mainFrame,
                 TweenInfo.new(0.3),
                 {
-                    Position = UDim2.new(0.9, -160, 0, 300),
+                    Position = UDim2.new(0.9, -160, 0, 480),
                     Size = originalSize,
                     BackgroundTransparency = 0.15
                 }
@@ -1266,6 +1266,14 @@ function Syllinse:Load()
             ):Play()
         end
     )
+
+    UserInputService.InputBegan:Connect(function(input, processed)
+        if processed then return end
+        
+        if input.KeyCode == Enum.KeyCode.LeftControl or input.KeyCode == Enum.KeyCode.RightControl then
+            toggleMenu()
+        end
+    end)
 
     local toggleDragging = false
     local toggleDragInput, toggleDragStart, toggleStartPos
